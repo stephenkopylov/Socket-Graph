@@ -16,7 +16,8 @@ typedef NS_ENUM (NSUInteger, SMServerActionType) {
     SMServerActionTypeProfile
 };
 
-extern NSString* const SMProfileNotification;
+extern NSString* const SMConnectedNotification;
+extern NSString* const SMProfileRecievedNotification;
 
 @interface SocketManager : NSObject
 

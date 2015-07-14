@@ -6,18 +6,19 @@
 //  Copyright (c) 2015 Admin. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MainViewController.h"
 #import "SocketManager.h"
 
-@interface ViewController ()
+@interface MainViewController ()
 
 @end
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 

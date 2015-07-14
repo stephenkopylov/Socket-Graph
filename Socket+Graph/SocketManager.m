@@ -13,7 +13,9 @@
 
 @end
 
-NSString *const SMProfileNotification = @"SMProfileNotification";
+NSString *const SMConnectedNotification = @"SMConnectedNotification";
+NSString *const SMProfileRecievedNotification = @"SMProfileRecievedNotification";
+
 
 static SocketManager *sharedManager;
 static NSDictionary *actions;
@@ -120,7 +122,7 @@ static NSDictionary *serverActions;
     
     switch ( serverAction ) {
         case SMServerActionTypeProfile: {
-            notificationName = SMProfileNotification;
+            notificationName = SMProfileRecievedNotification;
             break;
         }
             
@@ -130,14 +132,20 @@ static NSDictionary *serverActions;
     }
     
     if ( notificationName ) {
-        if ( [NSThread isMainThread] ) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:message];
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:message];
-            });
-        }
+        [self postNotificationWithName:notificationName andObject:message];
+    }
+}
+
+
+- (void)postNotificationWithName:(NSString *)name andObject:(id)object
+{
+    if ( [NSThread isMainThread] ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:name object:object];
+    }
+    else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:name object:object];
+        });
     }
 }
 
@@ -160,6 +168,7 @@ static NSDictionary *serverActions;
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
     _connected = YES;
+    [self postNotificationWithName:SMConnectedNotification andObject:nil];
     [self runQueue];
 }
 

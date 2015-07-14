@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SocketManager.h"
 #import "UserManager.h"
+#import "LoadingScreenViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +21,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
     [self setup];
+    
+    [self setupViewControllers];
+    
     return YES;
 }
 
@@ -66,6 +71,14 @@
     [socketManager getUserInfo];
     
     UserManager *userManager = [UserManager sharedManager];
+}
+
+
+- (void)setupViewControllers
+{
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = [LoadingScreenViewController new];
+    [self.window makeKeyAndVisible];
 }
 
 

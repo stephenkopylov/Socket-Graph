@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		845918D11B55A93600D30AA5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918D01B55A93600D30AA5 /* main.m */; };
 		845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918D31B55A93600D30AA5 /* AppDelegate.m */; };
-		845918D71B55A93600D30AA5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918D61B55A93600D30AA5 /* ViewController.m */; };
-		845918DA1B55A93600D30AA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845918D81B55A93600D30AA5 /* Main.storyboard */; };
+		845918D71B55A93600D30AA5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918D61B55A93600D30AA5 /* MainViewController.m */; };
 		845918DC1B55A93600D30AA5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845918DB1B55A93600D30AA5 /* Images.xcassets */; };
 		845918DF1B55A93600D30AA5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845918DD1B55A93600D30AA5 /* LaunchScreen.xib */; };
 		845918EB1B55A93600D30AA5 /* Socket_GraphTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918EA1B55A93600D30AA5 /* Socket_GraphTests.m */; };
 		8475912D1B55C80900DD2BA2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912C1B55C80900DD2BA2 /* User.m */; };
+		847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912F1B55CC3F00DD2BA2 /* LoadingScreenViewController.m */; };
 		849397641B55C3010067AEAA /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849397631B55C3010067AEAA /* UserManager.m */; };
 		849666221B55ACA1000C985D /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849666211B55ACA1000C985D /* SocketManager.m */; };
 		B99976213AE67CBC7BB42822 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */; };
@@ -39,9 +39,8 @@
 		845918D01B55A93600D30AA5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		845918D21B55A93600D30AA5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		845918D31B55A93600D30AA5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		845918D51B55A93600D30AA5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		845918D61B55A93600D30AA5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		845918D91B55A93600D30AA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		845918D51B55A93600D30AA5 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		845918D61B55A93600D30AA5 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		845918DB1B55A93600D30AA5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		845918DE1B55A93600D30AA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		845918E41B55A93600D30AA5 /* Socket+GraphTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Socket+GraphTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +48,8 @@
 		845918EA1B55A93600D30AA5 /* Socket_GraphTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Socket_GraphTests.m; sourceTree = "<group>"; };
 		8475912B1B55C80900DD2BA2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8475912C1B55C80900DD2BA2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		8475912E1B55CC3F00DD2BA2 /* LoadingScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingScreenViewController.h; path = ../LoadingScreenViewController.h; sourceTree = "<group>"; };
+		8475912F1B55CC3F00DD2BA2 /* LoadingScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadingScreenViewController.m; path = ../LoadingScreenViewController.m; sourceTree = "<group>"; };
 		849397621B55C3010067AEAA /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
 		849397631B55C3010067AEAA /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		849666201B55ACA1000C985D /* SocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
@@ -107,21 +108,15 @@
 		845918CD1B55A93600D30AA5 /* Socket+Graph */ = {
 			isa = PBXGroup;
 			children = (
+				847591331B55CC7400DD2BA2 /* Model */,
+				847591321B55CC6500DD2BA2 /* Managers */,
+				847591311B55CC5500DD2BA2 /* ViewControllers */,
 				845918D21B55A93600D30AA5 /* AppDelegate.h */,
 				845918D31B55A93600D30AA5 /* AppDelegate.m */,
-				845918D51B55A93600D30AA5 /* ViewController.h */,
-				845918D61B55A93600D30AA5 /* ViewController.m */,
-				845918D81B55A93600D30AA5 /* Main.storyboard */,
 				845918DB1B55A93600D30AA5 /* Images.xcassets */,
 				845918DD1B55A93600D30AA5 /* LaunchScreen.xib */,
 				845918CE1B55A93600D30AA5 /* Supporting Files */,
-				849666201B55ACA1000C985D /* SocketManager.h */,
-				849666211B55ACA1000C985D /* SocketManager.m */,
 				84062D541B55B89D004C62C4 /* Defines.h */,
-				849397621B55C3010067AEAA /* UserManager.h */,
-				849397631B55C3010067AEAA /* UserManager.m */,
-				8475912B1B55C80900DD2BA2 /* User.h */,
-				8475912C1B55C80900DD2BA2 /* User.m */,
 			);
 			path = "Socket+Graph";
 			sourceTree = "<group>";
@@ -151,6 +146,37 @@
 				845918E91B55A93600D30AA5 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		847591311B55CC5500DD2BA2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8475912E1B55CC3F00DD2BA2 /* LoadingScreenViewController.h */,
+				8475912F1B55CC3F00DD2BA2 /* LoadingScreenViewController.m */,
+				845918D51B55A93600D30AA5 /* MainViewController.h */,
+				845918D61B55A93600D30AA5 /* MainViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		847591321B55CC6500DD2BA2 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				849666201B55ACA1000C985D /* SocketManager.h */,
+				849666211B55ACA1000C985D /* SocketManager.m */,
+				849397621B55C3010067AEAA /* UserManager.h */,
+				849397631B55C3010067AEAA /* UserManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		847591331B55CC7400DD2BA2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8475912B1B55C80900DD2BA2 /* User.h */,
+				8475912C1B55C80900DD2BA2 /* User.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		CB41017FC180A4EC52711060 /* Pods */ = {
@@ -244,7 +270,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				845918DA1B55A93600D30AA5 /* Main.storyboard in Resources */,
 				845918DF1B55A93600D30AA5 /* LaunchScreen.xib in Resources */,
 				845918DC1B55A93600D30AA5 /* Images.xcassets in Resources */,
 			);
@@ -297,8 +322,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				845918D71B55A93600D30AA5 /* ViewController.m in Sources */,
+				845918D71B55A93600D30AA5 /* MainViewController.m in Sources */,
 				845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */,
+				847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */,
 				8475912D1B55C80900DD2BA2 /* User.m in Sources */,
 				849397641B55C3010067AEAA /* UserManager.m in Sources */,
 				849666221B55ACA1000C985D /* SocketManager.m in Sources */,
@@ -325,14 +351,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		845918D81B55A93600D30AA5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				845918D91B55A93600D30AA5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		845918DD1B55A93600D30AA5 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
