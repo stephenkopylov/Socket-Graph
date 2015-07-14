@@ -1,0 +1,14 @@
+//
+//  PrefixHeader.pch
+//  Socket+Graph
+//
+//  Created by Admin on 15.07.15.
+//  Copyright (c) 2015 Admin. All rights reserved.
+//
+
+#ifndef Socket_Graph_PrefixHeader_pch
+#define Socket_Graph_PrefixHeader_pch
+
+#import "Defines.h"
+
+#endif
