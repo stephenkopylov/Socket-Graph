@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-Realm.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SocketRocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>9388957E9D01C7E60BB469A2</key>
+		<key>39B12590B0B5756A77C33832</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ED8D17274670951575E779C0</key>
+		<key>A899601B3D487077C2EC1D8B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A96312A6C72097CCA0DA269B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

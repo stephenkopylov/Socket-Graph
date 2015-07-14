@@ -14,6 +14,8 @@
 		845918DC1B55A93600D30AA5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845918DB1B55A93600D30AA5 /* Images.xcassets */; };
 		845918DF1B55A93600D30AA5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845918DD1B55A93600D30AA5 /* LaunchScreen.xib */; };
 		845918EB1B55A93600D30AA5 /* Socket_GraphTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918EA1B55A93600D30AA5 /* Socket_GraphTests.m */; };
+		8475912D1B55C80900DD2BA2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912C1B55C80900DD2BA2 /* User.m */; };
+		849397641B55C3010067AEAA /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849397631B55C3010067AEAA /* UserManager.m */; };
 		849666221B55ACA1000C985D /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849666211B55ACA1000C985D /* SocketManager.m */; };
 		B99976213AE67CBC7BB42822 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -45,6 +47,10 @@
 		845918E41B55A93600D30AA5 /* Socket+GraphTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Socket+GraphTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		845918E91B55A93600D30AA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845918EA1B55A93600D30AA5 /* Socket_GraphTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Socket_GraphTests.m; sourceTree = "<group>"; };
+		8475912B1B55C80900DD2BA2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		8475912C1B55C80900DD2BA2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		849397621B55C3010067AEAA /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		849397631B55C3010067AEAA /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		849666201B55ACA1000C985D /* SocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
 		849666211B55ACA1000C985D /* SocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
 		BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +118,10 @@
 				849666201B55ACA1000C985D /* SocketManager.h */,
 				849666211B55ACA1000C985D /* SocketManager.m */,
 				84062D541B55B89D004C62C4 /* Defines.h */,
+				849397621B55C3010067AEAA /* UserManager.h */,
+				849397631B55C3010067AEAA /* UserManager.m */,
+				8475912B1B55C80900DD2BA2 /* User.h */,
+				8475912C1B55C80900DD2BA2 /* User.m */,
 			);
 			path = "Socket+Graph";
 			sourceTree = "<group>";
@@ -289,6 +299,8 @@
 			files = (
 				845918D71B55A93600D30AA5 /* ViewController.m in Sources */,
 				845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */,
+				8475912D1B55C80900DD2BA2 /* User.m in Sources */,
+				849397641B55C3010067AEAA /* UserManager.m in Sources */,
 				849666221B55ACA1000C985D /* SocketManager.m in Sources */,
 				845918D11B55A93600D30AA5 /* main.m in Sources */,
 			);

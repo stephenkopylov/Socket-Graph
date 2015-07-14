@@ -18,12 +18,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSDictionary *message = @{
-                              @"token": @"fredclark201590@gmail.com/fredclark201590@gmail.com"
-                              };
-    
-    [SocketManager sendMessageWithActionType:SMActionTypeToken andMessage:message];
 }
 
 

@@ -12,6 +12,12 @@ typedef NS_ENUM (NSUInteger, SMActionType) {
     SMActionTypeToken
 };
 
+typedef NS_ENUM (NSUInteger, SMServerActionType) {
+    SMServerActionTypeProfile
+};
+
+extern NSString* const SMProfileNotification;
+
 @interface SocketManager : NSObject
 
 + (instancetype)sharedManager;
@@ -19,5 +25,7 @@ typedef NS_ENUM (NSUInteger, SMActionType) {
 + (void)sendMessageWithActionType:(SMActionType)actionType andMessage:(NSDictionary *)message;
 
 - (void)send:(NSString *)data;
+
+- (void)getUserInfo;
 
 @end

@@ -13,9 +13,12 @@
 
 @end
 
-static SocketManager *sharedManager;
+NSString *const SMProfileNotification = @"SMProfileNotification";
 
+static SocketManager *sharedManager;
 static NSDictionary *actions;
+static NSDictionary *serverActions;
+
 
 @implementation SocketManager {
     SRWebSocket *_webSocket;
@@ -30,6 +33,10 @@ static NSDictionary *actions;
     actions = @{
                 @(SMActionTypeToken): @"token"
                 };
+    
+    serverActions = @{
+                      @"profile": @(SMServerActionTypeProfile)
+                      };
 }
 
 
@@ -80,6 +87,16 @@ static NSDictionary *actions;
 
 #pragma mark - Custom methods
 
+- (void)getUserInfo
+{
+    NSDictionary *message = @{
+                              @"token": @"fredclark201590@gmail.com/fredclark201590@gmail.com"
+                              };
+    
+    [SocketManager sendMessageWithActionType:SMActionTypeToken andMessage:message];
+}
+
+
 - (void)send:(NSString *)data
 {
     if ( _connected ) {
@@ -87,6 +104,40 @@ static NSDictionary *actions;
     }
     else {
         [_dataQueue addObject:data];
+    }
+}
+
+
+- (void)recieved:(NSDictionary *)data
+{
+    NSString *action = data[@"action"];
+    
+    NSDictionary *message = data[@"message"];
+    
+    SMServerActionType serverAction = ((NSNumber *)serverActions[action]).integerValue;
+    
+    NSString *notificationName;
+    
+    switch ( serverAction ) {
+        case SMServerActionTypeProfile: {
+            notificationName = SMProfileNotification;
+            break;
+        }
+            
+        default: {
+            break;
+        }
+    }
+    
+    if ( notificationName ) {
+        if ( [NSThread isMainThread] ) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:message];
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:message];
+            });
+        }
     }
 }
 
@@ -115,6 +166,9 @@ static NSDictionary *actions;
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
+    NSDictionary *data = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    
+    [self recieved:data];
 }
 
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>845A5ADB-3BFB-4E35-8EB5-369AE11D1668</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Socket+Graph</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>95EB5933BD4813ED2AE1793162E8B2FB87516DFA</key>
+		<string>https://github.com/stephenkopylov/Socket-Graph.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Socket+Graph.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>95EB5933BD4813ED2AE1793162E8B2FB87516DFA</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/stephenkopylov/Socket-Graph.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>95EB5933BD4813ED2AE1793162E8B2FB87516DFA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>95EB5933BD4813ED2AE1793162E8B2FB87516DFA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Socket-Graph</string>
+		</dict>
+	</array>
+</dict>
+</plist>
