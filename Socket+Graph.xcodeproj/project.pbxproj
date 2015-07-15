@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		843DB8731B56EE730078367C /* CustomFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 843DB8721B56EE730078367C /* CustomFlowLayout.m */; };
+		843DB87B1B56F6110078367C /* RatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843DB87A1B56F6110078367C /* RatesViewController.m */; };
 		845918D11B55A93600D30AA5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918D01B55A93600D30AA5 /* main.m */; };
 		845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918D31B55A93600D30AA5 /* AppDelegate.m */; };
 		845918D71B55A93600D30AA5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918D61B55A93600D30AA5 /* MainViewController.m */; };
@@ -34,6 +36,10 @@
 		44C08135B52FE0E660696C61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		84062D541B55B89D004C62C4 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		84062D551B55BA34004C62C4 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		843DB8711B56EE730078367C /* CustomFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFlowLayout.h; sourceTree = "<group>"; };
+		843DB8721B56EE730078367C /* CustomFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFlowLayout.m; sourceTree = "<group>"; };
+		843DB8791B56F6110078367C /* RatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatesViewController.h; sourceTree = "<group>"; };
+		843DB87A1B56F6110078367C /* RatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatesViewController.m; sourceTree = "<group>"; };
 		845918CB1B55A93600D30AA5 /* Socket+Graph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Socket+Graph.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		845918CF1B55A93600D30AA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845918D01B55A93600D30AA5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -85,6 +91,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		843DB8741B56EE9E0078367C /* FlowLayouts */ = {
+			isa = PBXGroup;
+			children = (
+				843DB8711B56EE730078367C /* CustomFlowLayout.h */,
+				843DB8721B56EE730078367C /* CustomFlowLayout.m */,
+			);
+			name = FlowLayouts;
+			sourceTree = "<group>";
+		};
 		845918C21B55A93600D30AA5 = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +123,7 @@
 		845918CD1B55A93600D30AA5 /* Socket+Graph */ = {
 			isa = PBXGroup;
 			children = (
+				843DB8741B56EE9E0078367C /* FlowLayouts */,
 				847591331B55CC7400DD2BA2 /* Model */,
 				847591321B55CC6500DD2BA2 /* Managers */,
 				847591311B55CC5500DD2BA2 /* ViewControllers */,
@@ -151,6 +167,8 @@
 		847591311B55CC5500DD2BA2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				843DB8791B56F6110078367C /* RatesViewController.h */,
+				843DB87A1B56F6110078367C /* RatesViewController.m */,
 				8475912E1B55CC3F00DD2BA2 /* LoadingScreenViewController.h */,
 				8475912F1B55CC3F00DD2BA2 /* LoadingScreenViewController.m */,
 				845918D51B55A93600D30AA5 /* MainViewController.h */,
@@ -322,12 +340,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843DB87B1B56F6110078367C /* RatesViewController.m in Sources */,
 				845918D71B55A93600D30AA5 /* MainViewController.m in Sources */,
 				845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */,
 				847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */,
 				8475912D1B55C80900DD2BA2 /* User.m in Sources */,
 				849397641B55C3010067AEAA /* UserManager.m in Sources */,
 				849666221B55ACA1000C985D /* SocketManager.m in Sources */,
+				843DB8731B56EE730078367C /* CustomFlowLayout.m in Sources */,
 				845918D11B55A93600D30AA5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
