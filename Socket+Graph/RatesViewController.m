@@ -61,11 +61,12 @@
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_valueLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(>=10)-[plus(40)]-10-[label(60)]-10-[minus(40)]-(>=10)-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(>=0)-[plus(40)]-5-[label(60)]-5-[minus(40)]-(>=0)-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_plusButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]]; \
     
     self.rate = 0;
+     
 }
 
 

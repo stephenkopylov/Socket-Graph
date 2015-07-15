@@ -36,6 +36,7 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
         _cell.translatesAutoresizingMaskIntoConstraints = NO;
         _cell.textLabel.text = @"123123";
         _cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        _cell.userInteractionEnabled = NO;
         [self addSubview:_cell];
         
         _tableView = [UITableView new];
