@@ -8,20 +8,24 @@
 
 #import "MainViewController.h"
 #import "CustomFlowLayout.h"
+
+#import "MenuViewController.h"
+#import "GraphViewController.h"
 #import "RatesViewController.h"
 
-NSString *const cellIdentified = @"cellIdentified";
+
+NSString *const MainViewControllerCellIdentifier = @"MainViewControllerCellIdentifier";
 
 @interface MainViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
 
 
-
 @implementation MainViewController {
     UICollectionView *_collectionView;
-    UIView *_firstView;
-    UIView *_seconView;
+    
+    MenuViewController *_menuViewController;
+    GraphViewController *_graphViewController;
     RatesViewController *_ratesViewController;
 }
 
@@ -39,7 +43,7 @@ NSString *const cellIdentified = @"cellIdentified";
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor whiteColor];
     
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentified];
+    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:MainViewControllerCellIdentifier];
     
     [self.view addSubview:_collectionView];
     
@@ -48,14 +52,15 @@ NSString *const cellIdentified = @"cellIdentified";
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[collectionView]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[collectionView]|" options:0 metrics:nil views:views]];
     
-    _firstView = [UIView new];
-    _firstView.translatesAutoresizingMaskIntoConstraints = NO;
+    _menuViewController = [MenuViewController new];
+    [self addChildViewController:_menuViewController];
+    [_menuViewController didMoveToParentViewController:self];
     
-    _seconView = [UIView new];
-    _seconView.translatesAutoresizingMaskIntoConstraints = NO;
+    _graphViewController = [GraphViewController new];
+    [self addChildViewController:_graphViewController];
+    [_graphViewController didMoveToParentViewController:self];
     
     _ratesViewController = [RatesViewController new];
-    _ratesViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     [self addChildViewController:_ratesViewController];
     [_ratesViewController didMoveToParentViewController:self];
 }
@@ -71,16 +76,17 @@ NSString *const cellIdentified = @"cellIdentified";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentified forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MainViewControllerCellIdentifier forIndexPath:indexPath];
     
     CollectionViewCells number = indexPath.row;
     
+    cell.backgroundColor = [UIColor whiteColor];
     UIView *view;
     
     switch ( number ) {
         case CollectionViewCellsFirst: {
             if ( !cell.contentView.subviews.count ) {
-                view = _firstView;
+                view = _menuViewController.view;
             }
             
             break;
@@ -88,7 +94,7 @@ NSString *const cellIdentified = @"cellIdentified";
             
         case CollectionViewCellsSecond: {
             if ( !cell.contentView.subviews.count ) {
-                view = _seconView;
+                view = _graphViewController.view;
             }
             
             break;

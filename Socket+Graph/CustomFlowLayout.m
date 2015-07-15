@@ -8,7 +8,11 @@
 
 #import "CustomFlowLayout.h"
 
+#define LANDSCAPE_FIRST_VIEW_HEIGHT           50
+#define LANDSCAPE_SECOND_VIEW_WITH_PERCENTAGE 70
 
+#define PORTRAIT_FIRST_VIEW_HEIGHT            50
+#define PORTRAIT_SECOND_VIEW_WITH_PERCENTAGE  70
 
 @implementation CustomFlowLayout
 
@@ -44,17 +48,17 @@
     if ( IS_LANDSCAPE ) {
         switch ( cellNumber ) {
             case CollectionViewCellsFirst: {
-                frame = CGRectMake(0, 0, self.collectionView.bounds.size.width, 40);
+                frame = CGRectMake(0, 0, self.collectionView.bounds.size.width, LANDSCAPE_FIRST_VIEW_HEIGHT);
                 break;
             }
                 
             case CollectionViewCellsSecond: {
-                frame = CGRectMake(0, 40, self.collectionView.bounds.size.width / 100 * 70, self.collectionView.bounds.size.height - 40);
+                frame = CGRectMake(0, LANDSCAPE_FIRST_VIEW_HEIGHT, self.collectionView.bounds.size.width / 100 * LANDSCAPE_SECOND_VIEW_WITH_PERCENTAGE, self.collectionView.bounds.size.height - LANDSCAPE_FIRST_VIEW_HEIGHT);
                 break;
             }
                 
             case CollectionViewCellsThird: {
-                frame = CGRectMake(self.collectionView.bounds.size.width / 100 * 70, 40, self.collectionView.bounds.size.width / 100 * 30, self.collectionView.bounds.size.height - 40);
+                frame = CGRectMake(self.collectionView.bounds.size.width / 100 * LANDSCAPE_SECOND_VIEW_WITH_PERCENTAGE, LANDSCAPE_FIRST_VIEW_HEIGHT, self.collectionView.bounds.size.width / 100 * (100 - LANDSCAPE_SECOND_VIEW_WITH_PERCENTAGE), self.collectionView.bounds.size.height - LANDSCAPE_FIRST_VIEW_HEIGHT);
                 break;
             }
                 
@@ -66,17 +70,17 @@
     else {
         switch ( cellNumber ) {
             case CollectionViewCellsFirst: {
-                frame = CGRectMake(0, 0, self.collectionView.bounds.size.width, 40);
+                frame = CGRectMake(0, 0, self.collectionView.bounds.size.width, PORTRAIT_FIRST_VIEW_HEIGHT);
                 break;
             }
                 
             case CollectionViewCellsSecond: {
-                frame = CGRectMake(0, 40, self.collectionView.bounds.size.width, (self.collectionView.bounds.size.height - 40) / 100 * 60);
+                frame = CGRectMake(0, PORTRAIT_FIRST_VIEW_HEIGHT, self.collectionView.bounds.size.width, (self.collectionView.bounds.size.height - PORTRAIT_FIRST_VIEW_HEIGHT) / 100 * PORTRAIT_SECOND_VIEW_WITH_PERCENTAGE);
                 break;
             }
                 
             case CollectionViewCellsThird: {
-                frame = CGRectMake(0, 40 + (self.collectionView.bounds.size.height - 40) / 100 * 60, self.collectionView.bounds.size.width, (self.collectionView.bounds.size.height - 40) / 100 * 40);
+                frame = CGRectMake(0, PORTRAIT_FIRST_VIEW_HEIGHT + (self.collectionView.bounds.size.height - PORTRAIT_FIRST_VIEW_HEIGHT) / 100 * PORTRAIT_SECOND_VIEW_WITH_PERCENTAGE, self.collectionView.bounds.size.width, (self.collectionView.bounds.size.height - PORTRAIT_FIRST_VIEW_HEIGHT) / 100 * (100 - PORTRAIT_SECOND_VIEW_WITH_PERCENTAGE));
                 break;
             }
                 
