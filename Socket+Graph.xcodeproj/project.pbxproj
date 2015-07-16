@@ -23,6 +23,7 @@
 		849666221B55ACA1000C985D /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849666211B55ACA1000C985D /* SocketManager.m */; };
 		84C182AD1B57093500329139 /* DropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C182AC1B57093500329139 /* DropDownMenu.m */; };
 		B99976213AE67CBC7BB42822 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */; };
+		EE1814741B57A61200414C2F /* DropDownMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,8 @@
 		84C182AC1B57093500329139 /* DropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownMenu.m; sourceTree = "<group>"; };
 		BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6D45CB3553C93F881576C4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		EE1814721B57A61200414C2F /* DropDownMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownMenuTableViewCell.h; sourceTree = "<group>"; };
+		EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownMenuTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +219,8 @@
 			children = (
 				84C182AB1B57093500329139 /* DropDownMenu.h */,
 				84C182AC1B57093500329139 /* DropDownMenu.m */,
+				EE1814721B57A61200414C2F /* DropDownMenuTableViewCell.h */,
+				EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE1814741B57A61200414C2F /* DropDownMenuTableViewCell.m in Sources */,
 				843DB87B1B56F6110078367C /* RatesViewController.m in Sources */,
 				845918D71B55A93600D30AA5 /* MainViewController.m in Sources */,
 				845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */,

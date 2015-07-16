@@ -7,6 +7,7 @@
 //
 
 #import "DropDownMenu.h"
+#import "DropDownMenuTableViewCell.h"
 #import "AppDelegate.h"
 
 NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
@@ -16,7 +17,7 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
 @end
 
 @implementation DropDownMenu {
-    UITableViewCell *_cell;
+    DropDownMenuTableViewCell *_cell;
     UITableView *_tableView;
     UIView *_bgView;
     
@@ -32,10 +33,9 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
         self.layer.borderWidth = 1.5;
         self.layer.cornerRadius = 5;
         
-        _cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DropDownMenuCellIdentifier];
+        _cell = [[DropDownMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DropDownMenuCellIdentifier];
         _cell.translatesAutoresizingMaskIntoConstraints = NO;
-        _cell.textLabel.text = @"123123";
-        _cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        _cell.name = @"123123";
         _cell.userInteractionEnabled = NO;
         [self addSubview:_cell];
         
@@ -44,7 +44,7 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DropDownMenuCellIdentifier];
+        [_tableView registerClass:[DropDownMenuTableViewCell class] forCellReuseIdentifier:DropDownMenuCellIdentifier];
         
         _bgView = [UIView new];
         _bgView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -140,13 +140,11 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DropDownMenuCellIdentifier forIndexPath:indexPath];
+    DropDownMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DropDownMenuCellIdentifier forIndexPath:indexPath];
     
     NSString *itemName = _items[indexPath.row];
     
-    cell.textLabel.text = itemName;
-    
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
+    cell.name = itemName;
     
     return cell;
 }
