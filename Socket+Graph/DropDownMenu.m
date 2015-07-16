@@ -29,21 +29,17 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
     self = [super init];
     
     if ( self ) {
-        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        self.layer.borderWidth = 1.5;
-        self.layer.cornerRadius = 5;
-        
         _cell = [[DropDownMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DropDownMenuCellIdentifier];
         _cell.translatesAutoresizingMaskIntoConstraints = NO;
-        _cell.name = @"123123";
         _cell.userInteractionEnabled = NO;
         [self addSubview:_cell];
         
         _tableView = [UITableView new];
-        _tableView.backgroundColor = [UIColor redColor];
+        _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.rowHeight = 35;
         [_tableView registerClass:[DropDownMenuTableViewCell class] forCellReuseIdentifier:DropDownMenuCellIdentifier];
         
         _bgView = [UIView new];
@@ -91,8 +87,8 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
                             };
     NSDictionary *metrics = @{
                               @"top": @(rect.origin.y + rect.size.height),
-                              @"left": @(rect.origin.x),
-                              @"width": @(rect.size.width),
+                              @"left": @(rect.origin.x + self.layer.cornerRadius),
+                              @"width": @(rect.size.width - self.layer.cornerRadius * 2),
                               @"height": @(_tableView.contentSize.height),
                               @"high": @(UILayoutPriorityDefaultHigh),
                               @"low": @(UILayoutPriorityDefaultLow)
@@ -130,6 +126,20 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
 }
 
 
+#pragma mark - Getters/setters
+
+- (void)setSelectedItem:(DropDownMenuItem *)selectedItem
+{
+    _selectedItem = selectedItem;
+    
+    _cell.name = _selectedItem.name;
+    
+    if ( [_delegate respondsToSelector:@selector(dropDownMenu:didSeletItem:)] ) {
+        [_delegate dropDownMenu:self didSeletItem:_selectedItem];
+    }
+}
+
+
 #pragma mark - UITableViewDelegate/UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -142,16 +152,36 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
 {
     DropDownMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DropDownMenuCellIdentifier forIndexPath:indexPath];
     
-    NSString *itemName = _items[indexPath.row];
+    DropDownMenuItem *item = _items[indexPath.row];
     
-    cell.name = itemName;
+    cell.name = item.name;
+    
+    cell.backgroundColor = self.backgroundColor;
     
     return cell;
 }
 
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ( [cell respondsToSelector:@selector(setSeparatorInset:)] ) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    if ( [cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)] ) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    if ( [cell respondsToSelector:@selector(setLayoutMargins:)] ) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.selectedItem = _items[indexPath.row];
+    
     [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self hideMenu];
 }

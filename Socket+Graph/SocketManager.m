@@ -8,13 +8,14 @@
 
 #import "SocketManager.h"
 #import "SRWebSocket.h"
+#import "ErrorHandler.h"
+#import "Asset.h"
+#import "NotificationsManager.h"
+#import "PlotPoint.h"
 
 @interface SocketManager ()<SRWebSocketDelegate>
 
 @end
-
-NSString *const SMConnectedNotification = @"SMConnectedNotification";
-NSString *const SMProfileRecievedNotification = @"SMProfileRecievedNotification";
 
 
 static SocketManager *sharedManager;
@@ -33,11 +34,16 @@ static NSDictionary *serverActions;
 + (void)load
 {
     actions = @{
-                @(SMActionTypeToken): @"token"
+                @(SMActionTypeToken): @"token",
+                @(SMActionTypeSubscribe): @"subscribe",
+                @(SMActionTypeUnsubscribe): @"unsubscribe"
                 };
     
     serverActions = @{
-                      @"profile": @(SMServerActionTypeProfile)
+                      @"error": @(SMServerActionTypeError),
+                      @"profile": @(SMServerActionTypeProfile),
+                      @"assets": @(SMServerActionTypeAssets),
+                      @"point": @(SMServerActionTypePoint)
                       };
 }
 
@@ -116,36 +122,43 @@ static NSDictionary *serverActions;
     
     NSDictionary *message = data[@"message"];
     
-    SMServerActionType serverAction = ((NSNumber *)serverActions[action]).integerValue;
+    NSLog(@"message = %@", data);
     
-    NSString *notificationName;
-    
-    switch ( serverAction ) {
-        case SMServerActionTypeProfile: {
-            notificationName = SMProfileRecievedNotification;
-            break;
+    if ( serverActions[action] ) {
+        SMServerActionType serverAction = ((NSNumber *)serverActions[action]).integerValue;
+        
+        NSString *notificationName;
+        
+        switch ( serverAction ) {
+            case SMServerActionTypeError: {
+                [ErrorHandler showErrorWithMessage:message];
+                break;
+            }
+                
+            case SMServerActionTypeProfile: {
+                notificationName = SMProfileRecievedNotification;
+                break;
+            }
+                
+            case SMServerActionTypeAssets: {
+                [Asset parseNewAssets:message];
+                break;
+            }
+                
+            case SMServerActionTypePoint: {
+                [PlotPoint parsePoint:message];
+                
+                break;
+            }
+                
+            default: {
+                break;
+            }
         }
-            
-        default: {
-            break;
+        
+        if ( notificationName ) {
+            [NotificationsManager postNotificationWithName:notificationName andObject:message];
         }
-    }
-    
-    if ( notificationName ) {
-        [self postNotificationWithName:notificationName andObject:message];
-    }
-}
-
-
-- (void)postNotificationWithName:(NSString *)name andObject:(id)object
-{
-    if ( [NSThread isMainThread] ) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:name object:object];
-    }
-    else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:name object:object];
-        });
     }
 }
 
@@ -168,7 +181,7 @@ static NSDictionary *serverActions;
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
     _connected = YES;
-    [self postNotificationWithName:SMConnectedNotification andObject:nil];
+    [NotificationsManager postNotificationWithName:SMConnectedNotification andObject:nil];
     [self runQueue];
 }
 

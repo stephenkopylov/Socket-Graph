@@ -18,14 +18,15 @@
     
     if ( self ) {
         _nameLabel = [UILabel new];
-        _nameLabel.text = @"test";
+        _nameLabel.font = [UIFont boldSystemFontOfSize:13];
         _nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
+        _nameLabel.textColor = [UIColor grayColor];
         [self addSubview:_nameLabel];
         
         NSDictionary *views = @{ @"name": _nameLabel };
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[name]|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[name]-5-|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[name]|" options:0 metrics:nil views:views]];
     }
     

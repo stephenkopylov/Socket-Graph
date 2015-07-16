@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-Realm+JSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Realm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>39B12590B0B5756A77C33832</key>
+		<key>1DF2EFEE2560E9EF665ED9AE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A899601B3D487077C2EC1D8B</key>
+		<key>8981372081E31DB6E492EA80</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A96312A6C72097CCA0DA269B</key>
+		<key>A604C11DDD4AC9FC25203FC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AD743D6C7DE30EB02A893080</key>
 		<dict>
 			<key>primary</key>
 			<true/>

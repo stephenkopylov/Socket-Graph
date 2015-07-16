@@ -17,11 +17,18 @@
 		845918DC1B55A93600D30AA5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845918DB1B55A93600D30AA5 /* Images.xcassets */; };
 		845918DF1B55A93600D30AA5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845918DD1B55A93600D30AA5 /* LaunchScreen.xib */; };
 		845918EB1B55A93600D30AA5 /* Socket_GraphTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 845918EA1B55A93600D30AA5 /* Socket_GraphTests.m */; };
+		8463D7071B583FD200AC0ACE /* DropDownMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D7061B583FD200AC0ACE /* DropDownMenuItem.m */; };
+		8463D70A1B5854E500AC0ACE /* ErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D7091B5854E500AC0ACE /* ErrorHandler.m */; };
+		8463D70E1B5855F600AC0ACE /* UIAlertController+Window.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D70D1B5855F600AC0ACE /* UIAlertController+Window.m */; };
+		8463D7111B585A1700AC0ACE /* NotificationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D7101B585A1700AC0ACE /* NotificationsManager.m */; };
+		8463D7171B585BC200AC0ACE /* PlotPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D7161B585BC200AC0ACE /* PlotPoint.m */; };
+		8463D71A1B58631B00AC0ACE /* SubscriptionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D7191B58631B00AC0ACE /* SubscriptionsManager.m */; };
 		8475912D1B55C80900DD2BA2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912C1B55C80900DD2BA2 /* User.m */; };
 		847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912F1B55CC3F00DD2BA2 /* LoadingScreenViewController.m */; };
 		849397641B55C3010067AEAA /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849397631B55C3010067AEAA /* UserManager.m */; };
 		849666221B55ACA1000C985D /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849666211B55ACA1000C985D /* SocketManager.m */; };
 		84C182AD1B57093500329139 /* DropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C182AC1B57093500329139 /* DropDownMenu.m */; };
+		84F7BDB61B583731001BAF52 /* Asset.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BDB51B583731001BAF52 /* Asset.m */; };
 		B99976213AE67CBC7BB42822 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */; };
 		EE1814741B57A61200414C2F /* DropDownMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -60,6 +67,18 @@
 		845918E41B55A93600D30AA5 /* Socket+GraphTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Socket+GraphTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		845918E91B55A93600D30AA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845918EA1B55A93600D30AA5 /* Socket_GraphTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Socket_GraphTests.m; sourceTree = "<group>"; };
+		8463D7051B583FD200AC0ACE /* DropDownMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownMenuItem.h; sourceTree = "<group>"; };
+		8463D7061B583FD200AC0ACE /* DropDownMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownMenuItem.m; sourceTree = "<group>"; };
+		8463D7081B5854E500AC0ACE /* ErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorHandler.h; sourceTree = "<group>"; };
+		8463D7091B5854E500AC0ACE /* ErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorHandler.m; sourceTree = "<group>"; };
+		8463D70C1B5855F600AC0ACE /* UIAlertController+Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Window.h"; sourceTree = "<group>"; };
+		8463D70D1B5855F600AC0ACE /* UIAlertController+Window.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Window.m"; sourceTree = "<group>"; };
+		8463D70F1B585A1700AC0ACE /* NotificationsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsManager.h; sourceTree = "<group>"; };
+		8463D7101B585A1700AC0ACE /* NotificationsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsManager.m; sourceTree = "<group>"; };
+		8463D7151B585BC200AC0ACE /* PlotPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotPoint.h; sourceTree = "<group>"; };
+		8463D7161B585BC200AC0ACE /* PlotPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotPoint.m; sourceTree = "<group>"; };
+		8463D7181B58631B00AC0ACE /* SubscriptionsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionsManager.h; sourceTree = "<group>"; };
+		8463D7191B58631B00AC0ACE /* SubscriptionsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionsManager.m; sourceTree = "<group>"; };
 		8475912B1B55C80900DD2BA2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8475912C1B55C80900DD2BA2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8475912E1B55CC3F00DD2BA2 /* LoadingScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingScreenViewController.h; path = ../LoadingScreenViewController.h; sourceTree = "<group>"; };
@@ -70,6 +89,8 @@
 		849666211B55ACA1000C985D /* SocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
 		84C182AB1B57093500329139 /* DropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownMenu.h; sourceTree = "<group>"; };
 		84C182AC1B57093500329139 /* DropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownMenu.m; sourceTree = "<group>"; };
+		84F7BDB41B583731001BAF52 /* Asset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Asset.h; sourceTree = "<group>"; };
+		84F7BDB51B583731001BAF52 /* Asset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Asset.m; sourceTree = "<group>"; };
 		BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6D45CB3553C93F881576C4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		EE1814721B57A61200414C2F /* DropDownMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownMenuTableViewCell.h; sourceTree = "<group>"; };
@@ -135,6 +156,7 @@
 		845918CD1B55A93600D30AA5 /* Socket+Graph */ = {
 			isa = PBXGroup;
 			children = (
+				8463D70B1B5855DA00AC0ACE /* Categories */,
 				84C182AA1B57091C00329139 /* Custom */,
 				843DB8741B56EE9E0078367C /* FlowLayouts */,
 				847591331B55CC7400DD2BA2 /* Model */,
@@ -177,6 +199,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8463D70B1B5855DA00AC0ACE /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				8463D70C1B5855F600AC0ACE /* UIAlertController+Window.h */,
+				8463D70D1B5855F600AC0ACE /* UIAlertController+Window.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		847591311B55CC5500DD2BA2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +232,12 @@
 				849666211B55ACA1000C985D /* SocketManager.m */,
 				849397621B55C3010067AEAA /* UserManager.h */,
 				849397631B55C3010067AEAA /* UserManager.m */,
+				8463D7081B5854E500AC0ACE /* ErrorHandler.h */,
+				8463D7091B5854E500AC0ACE /* ErrorHandler.m */,
+				8463D70F1B585A1700AC0ACE /* NotificationsManager.h */,
+				8463D7101B585A1700AC0ACE /* NotificationsManager.m */,
+				8463D7181B58631B00AC0ACE /* SubscriptionsManager.h */,
+				8463D7191B58631B00AC0ACE /* SubscriptionsManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -210,6 +247,10 @@
 			children = (
 				8475912B1B55C80900DD2BA2 /* User.h */,
 				8475912C1B55C80900DD2BA2 /* User.m */,
+				84F7BDB41B583731001BAF52 /* Asset.h */,
+				84F7BDB51B583731001BAF52 /* Asset.m */,
+				8463D7151B585BC200AC0ACE /* PlotPoint.h */,
+				8463D7161B585BC200AC0ACE /* PlotPoint.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -221,6 +262,8 @@
 				84C182AC1B57093500329139 /* DropDownMenu.m */,
 				EE1814721B57A61200414C2F /* DropDownMenuTableViewCell.h */,
 				EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */,
+				8463D7051B583FD200AC0ACE /* DropDownMenuItem.h */,
+				8463D7061B583FD200AC0ACE /* DropDownMenuItem.m */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -368,14 +411,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8463D71A1B58631B00AC0ACE /* SubscriptionsManager.m in Sources */,
 				EE1814741B57A61200414C2F /* DropDownMenuTableViewCell.m in Sources */,
+				8463D70A1B5854E500AC0ACE /* ErrorHandler.m in Sources */,
 				843DB87B1B56F6110078367C /* RatesViewController.m in Sources */,
+				8463D7071B583FD200AC0ACE /* DropDownMenuItem.m in Sources */,
 				845918D71B55A93600D30AA5 /* MainViewController.m in Sources */,
 				845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */,
+				8463D70E1B5855F600AC0ACE /* UIAlertController+Window.m in Sources */,
 				843DB87E1B56F8790078367C /* GraphViewController.m in Sources */,
+				8463D7111B585A1700AC0ACE /* NotificationsManager.m in Sources */,
 				847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */,
+				8463D7171B585BC200AC0ACE /* PlotPoint.m in Sources */,
 				8475912D1B55C80900DD2BA2 /* User.m in Sources */,
 				849397641B55C3010067AEAA /* UserManager.m in Sources */,
+				84F7BDB61B583731001BAF52 /* Asset.m in Sources */,
 				84C182AD1B57093500329139 /* DropDownMenu.m in Sources */,
 				849666221B55ACA1000C985D /* SocketManager.m in Sources */,
 				843DB8731B56EE730078367C /* CustomFlowLayout.m in Sources */,

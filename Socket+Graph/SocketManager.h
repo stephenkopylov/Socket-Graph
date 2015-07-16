@@ -9,15 +9,18 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM (NSUInteger, SMActionType) {
-    SMActionTypeToken
+    SMActionTypeToken,
+    SMActionTypeSubscribe,
+    SMActionTypeUnsubscribe
 };
 
 typedef NS_ENUM (NSUInteger, SMServerActionType) {
-    SMServerActionTypeProfile
+    SMServerActionTypeError,
+    SMServerActionTypeProfile,
+    SMServerActionTypeAssets,
+    SMServerActionTypePoint
 };
 
-extern NSString* const SMConnectedNotification;
-extern NSString* const SMProfileRecievedNotification;
 
 @interface SocketManager : NSObject
 

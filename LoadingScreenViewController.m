@@ -9,6 +9,7 @@
 #import "LoadingScreenViewController.h"
 #import "SocketManager.h"
 #import "MainViewController.h"
+#import "NotificationsManager.h"
 
 @interface LoadingScreenViewController ()
 
@@ -21,6 +22,7 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SMConnectedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SMProfileRecievedNotification object:nil];
 }
 

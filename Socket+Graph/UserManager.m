@@ -8,6 +8,7 @@
 
 #import "UserManager.h"
 #import "SocketManager.h"
+#import "NotificationsManager.h"
 
 static UserManager *sharedManager;
 
@@ -52,8 +53,15 @@ static NSString *const UserInfoBalanceKey = @"balance";
 {
     NSDictionary *userInfo  = notification.object;
     
-    [[NSUserDefaults standardUserDefaults] setObject:userInfo[UserInfoNameKey] forKey:UserInfoNameKey];
-    [[NSUserDefaults standardUserDefaults] setObject:userInfo[UserInfoBalanceKey] forKey:UserInfoBalanceKey];
+    self.currentUser.name = userInfo[UserInfoNameKey];
+    self.currentUser.balance = userInfo[UserInfoBalanceKey];
+}
+
+
+- (void)sync
+{
+    [[NSUserDefaults standardUserDefaults] setObject:self.currentUser.name forKey:UserInfoNameKey];
+    [[NSUserDefaults standardUserDefaults] setObject:self.currentUser.balance forKey:UserInfoBalanceKey];
 }
 
 
