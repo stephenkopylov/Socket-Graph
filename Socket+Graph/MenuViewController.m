@@ -23,15 +23,7 @@
     DropDownMenu *_menu;
     UILabel *_nameLabel;
     UILabel *_balanceLabel;
-    BOOL _errorRecieved;
 }
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SMErrorNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SMPointRecievedNotification object:nil];
-}
-
 
 - (void)viewDidLoad
 {
@@ -79,9 +71,6 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[menu(100)][name]-10-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[name][balance]-8-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:views]];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(errorRecieved) name:SMErrorNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pointRecieved:) name:SMPointRecievedNotification object:nil];
-    
     [self reloadData];
 }
 
@@ -110,45 +99,11 @@
 }
 
 
-- (void)errorRecieved
-{
-    _errorRecieved = YES;
-}
-
-
-- (void)pointRecieved:(NSNotification *)notification
-{
-    PlotPoint *point = notification.object;
-    
-    if ( ![point.assetId isEqualToNumber:_menu.selectedItem.itemId] && _errorRecieved ) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            __block DropDownMenuItem *currentItem;
-            [_menu.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                DropDownMenuItem *item = (DropDownMenuItem *)obj;
-                
-                if ( [item.itemId isEqualToNumber:point.assetId] ) {
-                    currentItem = item;
-                    *stop = YES;
-                }
-            }];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if ( currentItem ) {
-                    _menu.selectedItem = currentItem;
-                }
-            });
-        });
-    }
-}
-
-
 #pragma mark - DropDownMenuDelegate
 
 - (void)dropDownMenu:(DropDownMenu *)dropDownMenu didSeletItem:(DropDownMenuItem *)item
 {
-    BOOL subscribed = [SubscriptionsManager subscribeTo:item.itemId];
-    
-    _errorRecieved = !subscribed;
+    [SubscriptionsManager subscribeTo:item.itemId];
 }
 
 

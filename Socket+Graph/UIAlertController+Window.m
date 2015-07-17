@@ -1,11 +1,14 @@
 #import "UIAlertController+Window.h"
 #import <objc/runtime.h>
+#import "AlertViewController.h"
 
 @interface UIAlertController (Window)
 
 @property (nonatomic, strong) UIWindow *alertWindow;
 
 @end
+
+
 @implementation UIAlertController (Window)
 
 @dynamic alertWindow;
@@ -31,10 +34,16 @@
 - (void)show:(BOOL)animated
 {
     self.alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.alertWindow.rootViewController = [[UIViewController alloc] init];
+    self.alertWindow.rootViewController = [[AlertViewController alloc] init];
     self.alertWindow.windowLevel = UIWindowLevelAlert + 1;
     [self.alertWindow makeKeyAndVisible];
     [self.alertWindow.rootViewController presentViewController:self animated:animated completion:nil];
+}
+
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 

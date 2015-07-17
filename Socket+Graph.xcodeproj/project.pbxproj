@@ -31,6 +31,7 @@
 		84F7BDB61B583731001BAF52 /* Asset.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BDB51B583731001BAF52 /* Asset.m */; };
 		B99976213AE67CBC7BB42822 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */; };
 		EE1814741B57A61200414C2F /* DropDownMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */; };
+		EE3B1B591B58E178003ECD3E /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3B1B581B58E178003ECD3E /* AlertViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,8 @@
 		ED6D45CB3553C93F881576C4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		EE1814721B57A61200414C2F /* DropDownMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownMenuTableViewCell.h; sourceTree = "<group>"; };
 		EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownMenuTableViewCell.m; sourceTree = "<group>"; };
+		EE3B1B571B58E178003ECD3E /* AlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewController.h; sourceTree = "<group>"; };
+		EE3B1B581B58E178003ECD3E /* AlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +224,8 @@
 				843DB8801B56F88A0078367C /* MenuViewController.m */,
 				843DB8791B56F6110078367C /* RatesViewController.h */,
 				843DB87A1B56F6110078367C /* RatesViewController.m */,
+				EE3B1B571B58E178003ECD3E /* AlertViewController.h */,
+				EE3B1B581B58E178003ECD3E /* AlertViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 			files = (
 				8463D71A1B58631B00AC0ACE /* SubscriptionsManager.m in Sources */,
 				EE1814741B57A61200414C2F /* DropDownMenuTableViewCell.m in Sources */,
+				EE3B1B591B58E178003ECD3E /* AlertViewController.m in Sources */,
 				8463D70A1B5854E500AC0ACE /* ErrorHandler.m in Sources */,
 				843DB87B1B56F6110078367C /* RatesViewController.m in Sources */,
 				8463D7071B583FD200AC0ACE /* DropDownMenuItem.m in Sources */,

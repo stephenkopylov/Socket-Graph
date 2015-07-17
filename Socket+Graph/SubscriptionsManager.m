@@ -8,6 +8,7 @@
 
 #import "SubscriptionsManager.h"
 #import "SocketManager.h"
+#import "NotificationsManager.h"
 
 static SubscriptionsManager *sharedManager;
 
@@ -39,17 +40,21 @@ static SubscriptionsManager *sharedManager;
     
     if ( self ) {
         _subscriptions = [NSMutableArray new];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(errorRecieved) name:SMErrorNotification object:nil];
     }
     
     return self;
 }
 
 
+#pragma mark - Custom methods
+
 - (BOOL)subscribeToAssetWithId:(NSNumber *)assetId
 {
+    _currentSubscription = assetId;
+    
     if ( ![_subscriptions containsObject:assetId] ) {
-        _currentSubscription = assetId;
-        
         [_subscriptions addObject:assetId];
         
         NSDictionary *params = @{ @"assetId": assetId };
@@ -59,7 +64,13 @@ static SubscriptionsManager *sharedManager;
         return YES;
     }
     
-    return NO;
+    return YES;
+}
+
+
+- (void)errorRecieved
+{
+    [_subscriptions removeObject:_currentSubscription];
 }
 
 
