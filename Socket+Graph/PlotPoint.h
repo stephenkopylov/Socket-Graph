@@ -14,6 +14,10 @@
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSNumber *value;
 
+- (instancetype)initWithServerDictionary:(NSDictionary *)dictionary;
+
 + (void)parsePoint:(NSDictionary *)point;
+
++ (NSArray *)parsePoints:(NSArray *)pointsDicts;
 
 @end

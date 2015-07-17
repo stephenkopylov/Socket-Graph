@@ -20,13 +20,36 @@ static NSString *const ValueKey = @"value";
 
 + (void)parsePoint:(NSDictionary *)point
 {
-    PlotPoint *newPoint = [PlotPoint new];
-    
-    newPoint.assetId = point[AssetIdKey];
-    newPoint.name = point[AssetNameKey];
-    newPoint.value = point[ValueKey];
+    PlotPoint *newPoint = [[PlotPoint alloc] initWithServerDictionary:point];
     
     [NotificationsManager postNotificationWithName:SMPointRecievedNotification andObject:newPoint];
+}
+
+
++ (NSArray *)parsePoints:(NSArray *)pointsDicts
+{
+    NSMutableArray *points = [NSMutableArray new];
+    
+    for ( NSDictionary *pointDict in pointsDicts ) {
+        PlotPoint *newPoint = [[PlotPoint alloc] initWithServerDictionary:pointDict];
+        [points addObject:newPoint];
+    }
+    
+    return points.copy;
+}
+
+
+- (instancetype)initWithServerDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    
+    if ( self ) {
+        _assetId = dictionary[AssetIdKey];
+        _name = dictionary[AssetNameKey];
+        _value = dictionary[ValueKey];
+    }
+    
+    return self;
 }
 
 

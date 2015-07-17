@@ -12,6 +12,7 @@ NSString *const SMConnectedNotification = @"SMConnectedNotification";
 NSString *const SMErrorNotification = @"SMErrorNotification";
 NSString *const SMProfileRecievedNotification = @"SMProfileRecievedNotification";
 NSString *const SMAssetsRecievedNotification = @"SMAssetsRecievedNotification";
+NSString *const SMAssetsHistoryRecievedNotification = @"SMAssetsHistoryRecievedNotification";
 NSString *const SMPointRecievedNotification = @"SMPointRecievedNotification";
 
 @implementation NotificationsManager

@@ -32,6 +32,8 @@
 		B99976213AE67CBC7BB42822 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */; };
 		EE1814741B57A61200414C2F /* DropDownMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */; };
 		EE3B1B591B58E178003ECD3E /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3B1B581B58E178003ECD3E /* AlertViewController.m */; };
+		EE3B1B5C1B58E359003ECD3E /* PlotsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3B1B5B1B58E359003ECD3E /* PlotsManager.m */; };
+		EE3B1B5F1B58F348003ECD3E /* PlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3B1B5E1B58F348003ECD3E /* PlotView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,10 @@
 		EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownMenuTableViewCell.m; sourceTree = "<group>"; };
 		EE3B1B571B58E178003ECD3E /* AlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewController.h; sourceTree = "<group>"; };
 		EE3B1B581B58E178003ECD3E /* AlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
+		EE3B1B5A1B58E359003ECD3E /* PlotsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotsManager.h; sourceTree = "<group>"; };
+		EE3B1B5B1B58E359003ECD3E /* PlotsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotsManager.m; sourceTree = "<group>"; };
+		EE3B1B5D1B58F348003ECD3E /* PlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotView.h; sourceTree = "<group>"; };
+		EE3B1B5E1B58F348003ECD3E /* PlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +249,8 @@
 				8463D7101B585A1700AC0ACE /* NotificationsManager.m */,
 				8463D7181B58631B00AC0ACE /* SubscriptionsManager.h */,
 				8463D7191B58631B00AC0ACE /* SubscriptionsManager.m */,
+				EE3B1B5A1B58E359003ECD3E /* PlotsManager.h */,
+				EE3B1B5B1B58E359003ECD3E /* PlotsManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -269,6 +277,8 @@
 				EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */,
 				8463D7051B583FD200AC0ACE /* DropDownMenuItem.h */,
 				8463D7061B583FD200AC0ACE /* DropDownMenuItem.m */,
+				EE3B1B5D1B58F348003ECD3E /* PlotView.h */,
+				EE3B1B5E1B58F348003ECD3E /* PlotView.m */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -422,6 +432,7 @@
 				8463D70A1B5854E500AC0ACE /* ErrorHandler.m in Sources */,
 				843DB87B1B56F6110078367C /* RatesViewController.m in Sources */,
 				8463D7071B583FD200AC0ACE /* DropDownMenuItem.m in Sources */,
+				EE3B1B5C1B58E359003ECD3E /* PlotsManager.m in Sources */,
 				845918D71B55A93600D30AA5 /* MainViewController.m in Sources */,
 				845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */,
 				8463D70E1B5855F600AC0ACE /* UIAlertController+Window.m in Sources */,
@@ -429,6 +440,7 @@
 				8463D7111B585A1700AC0ACE /* NotificationsManager.m in Sources */,
 				847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */,
 				8463D7171B585BC200AC0ACE /* PlotPoint.m in Sources */,
+				EE3B1B5F1B58F348003ECD3E /* PlotView.m in Sources */,
 				8475912D1B55C80900DD2BA2 /* User.m in Sources */,
 				849397641B55C3010067AEAA /* UserManager.m in Sources */,
 				84F7BDB61B583731001BAF52 /* Asset.m in Sources */,

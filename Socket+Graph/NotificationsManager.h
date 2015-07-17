@@ -12,6 +12,7 @@ extern NSString *const SMConnectedNotification;
 extern NSString *const SMErrorNotification;
 extern NSString *const SMProfileRecievedNotification;
 extern NSString *const SMAssetsRecievedNotification;
+extern NSString *const SMAssetsHistoryRecievedNotification;
 extern NSString *const SMPointRecievedNotification;
 
 @interface NotificationsManager : NSObject

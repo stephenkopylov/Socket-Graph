@@ -12,6 +12,7 @@
 #import "Asset.h"
 #import "NotificationsManager.h"
 #import "PlotPoint.h"
+#import "PlotsManager.h"
 
 @interface SocketManager ()<SRWebSocketDelegate>
 
@@ -43,6 +44,7 @@ static NSDictionary *serverActions;
                       @"error": @(SMServerActionTypeError),
                       @"profile": @(SMServerActionTypeProfile),
                       @"assets": @(SMServerActionTypeAssets),
+                      @"asset_history": @(SMServerActionTypeAssetsHistory),
                       @"point": @(SMServerActionTypePoint)
                       };
 }
@@ -122,14 +124,15 @@ static NSDictionary *serverActions;
     
     NSDictionary *message = data[@"message"];
     
-    NSLog(@"message = %@", data);
+    NSLog(@"server message = %@", data);
     
     if ( serverActions[action] ) {
         SMServerActionType serverAction = ((NSNumber *)serverActions[action]).integerValue;
         
         NSString *notificationName;
         
-        switch ( serverAction ) {
+        switch ( serverAction )
+        {
             case SMServerActionTypeError: {
                 [ErrorHandler showErrorWithMessage:message];
                 break;
@@ -145,9 +148,14 @@ static NSDictionary *serverActions;
                 break;
             }
                 
+            case SMServerActionTypeAssetsHistory: {
+                [PlotsManager sharedManager];
+                notificationName = SMAssetsHistoryRecievedNotification;
+                break;
+            }
+                
             case SMServerActionTypePoint: {
                 [PlotPoint parsePoint:message];
-                
                 break;
             }
                 

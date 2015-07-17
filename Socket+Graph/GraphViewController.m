@@ -7,18 +7,48 @@
 //
 
 #import "GraphViewController.h"
+#import "PlotsManager.h"
+#import "PlotView.h"
 
-@interface GraphViewController ()
+@interface GraphViewController ()<PlotsManagerDelegate>
 
 @end
 
-@implementation GraphViewController
+@implementation GraphViewController {
+    PlotView *_plotVIew;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
     self.view.backgroundColor = [UIColor yellowColor];
+    
+    [PlotsManager sharedManager].delegate = self;
+    
+    _plotVIew = [PlotView new];
+    _plotVIew.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.view addSubview:_plotVIew];
+    
+    NSDictionary *views = @{ @"plot": _plotVIew };
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[plot]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[plot]|" options:0 metrics:nil views:views]];
+}
+
+
+#pragma mark - PlotsManagerDelegate
+
+- (void)plotsManager:(PlotsManager *)manager didRecievePlot:(NSArray *)points
+{
+    [_plotVIew drawPlot:points];
+}
+
+
+- (void)plotsManager:(PlotsManager *)manager didRecievePoint:(PlotPoint *)point
+{
+    [_plotVIew addPoint:point];
 }
 
 

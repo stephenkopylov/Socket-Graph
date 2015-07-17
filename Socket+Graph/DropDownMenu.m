@@ -35,7 +35,7 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
         [self addSubview:_cell];
         
         _tableView = [UITableView new];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -156,7 +156,7 @@ NSString *const DropDownMenuCellIdentifier = @"DropDownMenuCellIdentifier";
     
     cell.name = item.name;
     
-    cell.backgroundColor = self.backgroundColor;
+    cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
 }

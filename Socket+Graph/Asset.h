@@ -11,7 +11,7 @@
 @interface Asset : RLMObject
 
 @property NSInteger assetId;
-@property NSString* name;
+@property NSString *name;
 
 + (void)parseNewAssets:(NSDictionary *)assets;
 

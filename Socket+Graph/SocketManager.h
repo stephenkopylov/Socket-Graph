@@ -18,6 +18,7 @@ typedef NS_ENUM (NSUInteger, SMServerActionType) {
     SMServerActionTypeError,
     SMServerActionTypeProfile,
     SMServerActionTypeAssets,
+    SMServerActionTypeAssetsHistory,
     SMServerActionTypePoint
 };
 
