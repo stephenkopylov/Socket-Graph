@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6214" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6207"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,31 +10,45 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015 Admin. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
-                    <rect key="frame" x="20" y="439" width="441" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Socket+Graph" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                    <rect key="frame" x="20" y="140" width="441" height="43"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Bd-eD-wDC">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <color key="backgroundColor" red="0.082352941176470587" green="0.44705882352941179" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="f00-gb-gDr">
+                    <rect key="frame" x="90" y="90" width="300" height="300"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="FYv-F0-Z7b"/>
+                        <constraint firstAttribute="height" constant="300" id="mSn-tC-Nef"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="5cJ-9S-tgC"/>
-                <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
-                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
-                <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
-                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
+                <constraint firstItem="7Bd-eD-wDC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Eft-mN-7hX"/>
+                <constraint firstAttribute="centerX" secondItem="f00-gb-gDr" secondAttribute="centerX" id="Fjo-85-gfb"/>
+                <constraint firstAttribute="trailing" secondItem="f00-gb-gDr" secondAttribute="trailing" id="FoA-Rz-7Ca"/>
+                <constraint firstAttribute="bottom" secondItem="f00-gb-gDr" secondAttribute="bottom" id="Icw-vU-dEJ"/>
+                <constraint firstAttribute="centerY" secondItem="f00-gb-gDr" secondAttribute="centerY" id="Noy-PO-8fk"/>
+                <constraint firstItem="f00-gb-gDr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VF4-VC-m0S"/>
+                <constraint firstItem="f00-gb-gDr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VGr-Vn-UdN"/>
+                <constraint firstAttribute="bottom" secondItem="7Bd-eD-wDC" secondAttribute="bottom" id="naa-fz-uuy"/>
+                <constraint firstItem="7Bd-eD-wDC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="oQW-Km-MkN"/>
+                <constraint firstAttribute="trailing" secondItem="7Bd-eD-wDC" secondAttribute="trailing" id="xR7-pB-Cge"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="FoA-Rz-7Ca"/>
+                    <exclude reference="Icw-vU-dEJ"/>
+                    <exclude reference="VF4-VC-m0S"/>
+                    <exclude reference="VGr-Vn-UdN"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
+    <resources>
+        <image name="Launch" width="512" height="512"/>
+    </resources>
 </document>
