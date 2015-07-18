@@ -13,6 +13,7 @@
 @property (nonatomic) NSNumber *assetId;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSNumber *value;
+@property (nonatomic) NSNumber *time;
 
 - (instancetype)initWithServerDictionary:(NSDictionary *)dictionary;
 

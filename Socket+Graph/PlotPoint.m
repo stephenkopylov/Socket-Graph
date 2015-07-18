@@ -14,6 +14,7 @@
 static NSString *const AssetIdKey = @"assetId";
 static NSString *const AssetNameKey = @"assetName";
 static NSString *const ValueKey = @"value";
+static NSString *const TimeKey = @"time";
 
 
 @implementation PlotPoint
@@ -47,6 +48,7 @@ static NSString *const ValueKey = @"value";
         _assetId = dictionary[AssetIdKey];
         _name = dictionary[AssetNameKey];
         _value = dictionary[ValueKey];
+        _time = dictionary[TimeKey];
     }
     
     return self;

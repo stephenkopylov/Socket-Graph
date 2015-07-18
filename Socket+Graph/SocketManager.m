@@ -124,7 +124,7 @@ static NSDictionary *serverActions;
     
     NSDictionary *message = data[@"message"];
     
-    NSLog(@"server message = %@", data);
+    //NSLog(@"server message = %@", data);
     
     if ( serverActions[action] ) {
         SMServerActionType serverAction = ((NSNumber *)serverActions[action]).integerValue;

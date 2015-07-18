@@ -22,12 +22,12 @@
 {
     [super viewDidLoad];
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
-    self.view.backgroundColor = [UIColor yellowColor];
     
     [PlotsManager sharedManager].delegate = self;
     
     _plotVIew = [PlotView new];
     _plotVIew.translatesAutoresizingMaskIntoConstraints = NO;
+    _plotVIew.backgroundColor = [UIColor lightGrayColor];
     
     [self.view addSubview:_plotVIew];
     
