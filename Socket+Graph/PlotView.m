@@ -13,7 +13,7 @@
 
 #define timeOffsetX      0.4
 #define horizontalMargin 0
-#define verticalMargin   60
+#define verticalMargin   40
 #define POINT_SIZE       6
 
 @implementation PlotView {
@@ -48,6 +48,8 @@
     IndicatorView *_indicatorView;
     
     NSLayoutConstraint *_indicatorCenterYConstraint;
+    
+    CAGradientLayer *_gradientLayer;
 }
 
 
@@ -77,7 +79,7 @@
         _pointView = [UIView new];
         _pointView.frame = CGRectMake(0, 0, POINT_SIZE, POINT_SIZE);
         _pointView.layer.cornerRadius = POINT_SIZE / 2;
-        _pointView.backgroundColor = [UIColor redColor];
+        _pointView.backgroundColor = [UIColor orangeColor];
         
         [self addSubview:_pointView];
         
@@ -103,6 +105,11 @@
         
         _indicatorCenterYConstraint = [NSLayoutConstraint constraintWithItem:_indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0];
         [self addConstraint:_indicatorCenterYConstraint];
+        
+        _gradientLayer = [CAGradientLayer layer];
+        _gradientLayer.frame = self.bounds;
+        _gradientLayer.colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x3BFFFC).CGColor, (id)UIColorFromRGB(0x48A1FF).CGColor, nil];
+        [self.layer insertSublayer:_gradientLayer atIndex:0];
     }
     
     return self;
@@ -119,9 +126,9 @@
     if ( !_lineLayer ) {
         _lineLayer = [[CAShapeLayer alloc] init];
         _lineLayer.bounds = _containerView.bounds;
-        _lineLayer.strokeColor = [UIColor blueColor].CGColor;
+        _lineLayer.strokeColor = [UIColor whiteColor].CGColor;
         _lineLayer.fillColor = [UIColor clearColor].CGColor;
-        _lineLayer.lineWidth = 1.f;
+        _lineLayer.lineWidth = 1.5;
         
         [_containerView.layer addSublayer:_lineLayer];
     }
@@ -134,6 +141,10 @@
         _fillLayer.lineWidth = 1.f;
         
         [_containerView.layer addSublayer:_fillLayer];
+    }
+    
+    if ( !CGRectEqualToRect(self.bounds, _gradientLayer.frame)) {
+        _gradientLayer.frame = self.bounds;
     }
     
     //[self refresh];
@@ -206,6 +217,10 @@
         _pointView.center = _strokePath.currentPoint;
         _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
     }
+    
+    PlotPoint *_lastPoint = _points.lastObject;
+    
+    _indicatorView.value = _lastPoint.value.floatValue;
     
     [self refreshScrollView];
 }
@@ -307,6 +322,8 @@
     _diff = _maxVal.floatValue - _minVal.floatValue;
     
     _yStep = _diff / 100;
+    
+    [_gridView setMin:_minVal.floatValue andMax:_maxVal.floatValue];
 }
 
 

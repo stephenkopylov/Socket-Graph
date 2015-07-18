@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Admin. All rights reserved.
 //
 
+#import <objc/runtime.h>
+
 #define SERVER_PATH @"ws://45.55.255.49:8080/socket"
 
 #define SECONDS_IN_MINUTE 60
@@ -21,3 +23,5 @@
 #define DAYS_IN_YEAR 365
 #define WEEKS_IN_MONTH 4
 #define MONTHS_IN_YEAR 12
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]

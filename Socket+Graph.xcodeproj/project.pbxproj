@@ -25,6 +25,8 @@
 		8463D71A1B58631B00AC0ACE /* SubscriptionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D7191B58631B00AC0ACE /* SubscriptionsManager.m */; };
 		8472FA651B5A9BD200BC8C9A /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8472FA641B5A9BD200BC8C9A /* GridView.m */; };
 		8472FA681B5AA99500BC8C9A /* IndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8472FA671B5AA99500BC8C9A /* IndicatorView.m */; };
+		8472FA6B1B5ABD7E00BC8C9A /* GridLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8472FA6A1B5ABD7E00BC8C9A /* GridLineView.m */; };
+		8472FA6F1B5AC51500BC8C9A /* TimeBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8472FA6E1B5AC51500BC8C9A /* TimeBarCell.m */; };
 		8475912D1B55C80900DD2BA2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912C1B55C80900DD2BA2 /* User.m */; };
 		847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912F1B55CC3F00DD2BA2 /* LoadingScreenViewController.m */; };
 		849397641B55C3010067AEAA /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849397631B55C3010067AEAA /* UserManager.m */; };
@@ -89,6 +91,10 @@
 		8472FA641B5A9BD200BC8C9A /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
 		8472FA661B5AA99500BC8C9A /* IndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndicatorView.h; sourceTree = "<group>"; };
 		8472FA671B5AA99500BC8C9A /* IndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndicatorView.m; sourceTree = "<group>"; };
+		8472FA691B5ABD7E00BC8C9A /* GridLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLineView.h; sourceTree = "<group>"; };
+		8472FA6A1B5ABD7E00BC8C9A /* GridLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridLineView.m; sourceTree = "<group>"; };
+		8472FA6D1B5AC51500BC8C9A /* TimeBarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeBarCell.h; sourceTree = "<group>"; };
+		8472FA6E1B5AC51500BC8C9A /* TimeBarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeBarCell.m; sourceTree = "<group>"; };
 		8475912B1B55C80900DD2BA2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8475912C1B55C80900DD2BA2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8475912E1B55CC3F00DD2BA2 /* LoadingScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingScreenViewController.h; path = ../LoadingScreenViewController.h; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 		845918CD1B55A93600D30AA5 /* Socket+Graph */ = {
 			isa = PBXGroup;
 			children = (
+				8472FA6C1B5AC4FD00BC8C9A /* Cells */,
 				8463D70B1B5855DA00AC0ACE /* Categories */,
 				84C182AA1B57091C00329139 /* Custom */,
 				843DB8741B56EE9E0078367C /* FlowLayouts */,
@@ -226,6 +233,15 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		8472FA6C1B5AC4FD00BC8C9A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8472FA6D1B5AC51500BC8C9A /* TimeBarCell.h */,
+				8472FA6E1B5AC51500BC8C9A /* TimeBarCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		847591311B55CC5500DD2BA2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,8 +289,6 @@
 				84F7BDB51B583731001BAF52 /* Asset.m */,
 				8463D7151B585BC200AC0ACE /* PlotPoint.h */,
 				8463D7161B585BC200AC0ACE /* PlotPoint.m */,
-				8472FA661B5AA99500BC8C9A /* IndicatorView.h */,
-				8472FA671B5AA99500BC8C9A /* IndicatorView.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -304,12 +318,16 @@
 		84C7CF3F1B5A620A008BA741 /* PlotView */ = {
 			isa = PBXGroup;
 			children = (
+				8472FA661B5AA99500BC8C9A /* IndicatorView.h */,
+				8472FA671B5AA99500BC8C9A /* IndicatorView.m */,
 				EE3B1B5D1B58F348003ECD3E /* PlotView.h */,
 				EE3B1B5E1B58F348003ECD3E /* PlotView.m */,
 				84C7CF401B5A6221008BA741 /* LineContainer.h */,
 				84C7CF411B5A6221008BA741 /* LineContainer.m */,
 				8472FA631B5A9BD200BC8C9A /* GridView.h */,
 				8472FA641B5A9BD200BC8C9A /* GridView.m */,
+				8472FA691B5ABD7E00BC8C9A /* GridLineView.h */,
+				8472FA6A1B5ABD7E00BC8C9A /* GridLineView.m */,
 			);
 			name = PlotView;
 			sourceTree = "<group>";
@@ -477,9 +495,11 @@
 				849397641B55C3010067AEAA /* UserManager.m in Sources */,
 				84F7BDB61B583731001BAF52 /* Asset.m in Sources */,
 				8472FA651B5A9BD200BC8C9A /* GridView.m in Sources */,
+				8472FA6B1B5ABD7E00BC8C9A /* GridLineView.m in Sources */,
 				84C182AD1B57093500329139 /* DropDownMenu.m in Sources */,
 				849666221B55ACA1000C985D /* SocketManager.m in Sources */,
 				843DB8731B56EE730078367C /* CustomFlowLayout.m in Sources */,
+				8472FA6F1B5AC51500BC8C9A /* TimeBarCell.m in Sources */,
 				84C7CF421B5A6221008BA741 /* LineContainer.m in Sources */,
 				843DB8811B56F88A0078367C /* MenuViewController.m in Sources */,
 				845918D11B55A93600D30AA5 /* main.m in Sources */,

@@ -1,5 +1,5 @@
 //
-//  IndicatorView.h
+//  TimeBarCell.h
 //  Socket+Graph
 //
 //  Created by Admin on 18.07.15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IndicatorView : UIView
-
-@property (nonatomic) CGFloat value;
+@interface TimeBarCell : UICollectionViewCell
 
 @end

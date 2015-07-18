@@ -1,5 +1,5 @@
 //
-//  IndicatorView.h
+//  GridLineView.h
 //  Socket+Graph
 //
 //  Created by Admin on 18.07.15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IndicatorView : UIView
+@interface GridLineView : UIView
 
 @property (nonatomic) CGFloat value;
 
