@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PlotPoint.h"
 
-@interface PlotView : UIView <UIScrollViewDelegate>
+@interface PlotView : UIView <UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 - (void)drawPlot:(NSArray *)points;
 

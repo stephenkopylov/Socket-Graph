@@ -85,18 +85,10 @@ static NSString *const PointsKey = @"points";
 
 - (NSArray *)filterPoints:(NSArray *)points
 {
-    PlotPoint *firstPoint = points.firstObject;
-    
-    NSArray *filteredArray = [points subarrayWithRange:NSMakeRange(points.count - 30, 30)];
-    /*
-    if ( firstPoint ) {
-        RACSequence *mapped = [[points rac_sequence] filter:^BOOL (id value) {
-            return YES;
-        }];
-        
-        filteredArray = mapped.array;
+    if ( points.count > 100 ) {
+        NSArray *filteredArray = [points subarrayWithRange:NSMakeRange(points.count - 100, 100)];
+        return filteredArray;
     }
-    */
     
     return points;
 }

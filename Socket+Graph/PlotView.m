@@ -10,11 +10,14 @@
 #import "LineContainer.h"
 #import "GridView.h"
 #import "IndicatorView.h"
+#import "TimeBarCell.h"
 
 #define timeOffsetX      0.4
 #define horizontalMargin 0
 #define verticalMargin   40
 #define POINT_SIZE       6
+
+NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdentifier";
 
 @implementation PlotView {
     NSNumber *_minVal;
@@ -50,6 +53,8 @@
     NSLayoutConstraint *_indicatorCenterYConstraint;
     
     CAGradientLayer *_gradientLayer;
+    
+    UICollectionView *_timeCollectionView;
 }
 
 
@@ -87,10 +92,30 @@
         _indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_indicatorView];
         
+        _gradientLayer = [CAGradientLayer layer];
+        _gradientLayer.frame = self.bounds;
+        _gradientLayer.colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x3BFFFC).CGColor, (id)UIColorFromRGB(0x48A1FF).CGColor, nil];
+        [self.layer insertSublayer:_gradientLayer atIndex:0];
+        
+        UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        flowLayout.minimumInteritemSpacing = 0;
+        flowLayout.minimumLineSpacing = 0;
+        
+        _timeCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+        _timeCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+        _timeCollectionView.backgroundColor = [UIColor clearColor];
+        _timeCollectionView.delegate = self;
+        _timeCollectionView.dataSource = self;
+        [_timeCollectionView registerClass:[TimeBarCell class] forCellWithReuseIdentifier:TimeCollectionViewCellIdentifier];
+        
+        [self addSubview:_timeCollectionView];
+        
         NSDictionary *views = @{
                                 @"scrollView": _scrollView,
                                 @"gridView": _gridView,
-                                @"indicator": _indicatorView
+                                @"indicator": _indicatorView,
+                                @"time": _timeCollectionView
                                 };
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[scrollView]|" options:0 metrics:nil views:views]];
@@ -106,10 +131,10 @@
         _indicatorCenterYConstraint = [NSLayoutConstraint constraintWithItem:_indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0];
         [self addConstraint:_indicatorCenterYConstraint];
         
-        _gradientLayer = [CAGradientLayer layer];
-        _gradientLayer.frame = self.bounds;
-        _gradientLayer.colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x3BFFFC).CGColor, (id)UIColorFromRGB(0x48A1FF).CGColor, nil];
-        [self.layer insertSublayer:_gradientLayer atIndex:0];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[time]|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[time]|" options:0 metrics:nil views:views]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_timeCollectionView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:1 constant:10]];
     }
     
     return self;
@@ -156,6 +181,7 @@
 - (void)drawPlot:(NSArray *)points
 {
     BOOL redraw = NO;
+    CGFloat xShift = 0;
     
     if ( points.count == _points.count ) {
         PlotPoint *lastPoint = _points.lastObject;
@@ -164,6 +190,12 @@
             PlotPoint *currentPoint = (PlotPoint *)value;
             return currentPoint.time.integerValue > lastPoint.time.integerValue;
         }].array;
+        
+        if ( newPoints.count ) {
+            CGPoint lastP = [self convertPoint:lastPoint];
+            CGPoint newP = [self convertPoint:(PlotPoint *)newPoints.lastObject];
+            xShift = newP.x - lastP.x;
+        }
         
         redraw = YES;
         
@@ -178,23 +210,24 @@
     _startTime = firstPoint.time.integerValue;
     
     [self calculateMinMax];
+    [self generatePath:_points];
     
     if ( _strokePath ) {
-        [self generatePath:_points];
         _points = points.mutableCopy;
         
         if ( redraw ) {
-            CGFloat xShift = _strokePath.currentPoint.x - _oldStrokePath.currentPoint.x;
-            
-            CGAffineTransform transform = CGAffineTransformMakeTranslation(-xShift, 0);
-            [_strokePath applyTransform:transform];
-            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 CGAffineTransform transform = CGAffineTransformMakeTranslation(xShift, 0);
                 [_strokePath applyTransform:transform];
                 [self generatePath:_points];
                 _lineLayer.path = _strokePath.CGPath;
             });
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                CGPoint offset = _timeCollectionView.contentOffset;
+                offset.x += xShift;
+                _timeCollectionView.contentOffset = offset;
+            }];
         }
         
         CABasicAnimation *strokeAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
@@ -212,7 +245,7 @@
         }];
     }
     else {
-        [self generatePath:_points];
+        [_timeCollectionView reloadData];
         _lineLayer.path = _strokePath.CGPath;
         _pointView.center = _strokePath.currentPoint;
         _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
@@ -240,8 +273,17 @@
 {
     CGPoint point = _strokePath.currentPoint;
     
-    point.x -= _scrollView.contentOffset.x;
+    point.x += _scrollView.contentOffset.x;
     _pointView.center = point;
+}
+
+
+- (void)refreshCollectionView
+{
+    CGPoint offset = _timeCollectionView.contentOffset;
+    
+    offset.x += _scrollView.contentOffset.x;
+    _timeCollectionView.contentOffset = offset;
 }
 
 
@@ -328,9 +370,41 @@
 
 
 #pragma mark - UIScrollViewDelegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self refreshPoint];
+    if ( scrollView == _scrollView ) {
+        [self refreshPoint];
+        [self refreshCollectionView];
+    }
+}
+
+
+#pragma mark - UICollectionViewDelegate/UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 100;
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    TimeBarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TimeCollectionViewCellIdentifier forIndexPath:indexPath];
+    
+    CGFloat centerOfCell = cell.frame.origin.x + cell.frame.size.width / 2;
+    
+    NSInteger time = _startTime + centerOfCell / timeOffsetX * 100;
+    
+    cell.value = time;
+    
+    return cell;
+}
+
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(50, 10);
 }
 
 

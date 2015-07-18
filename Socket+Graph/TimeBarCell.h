@@ -10,4 +10,6 @@
 
 @interface TimeBarCell : UICollectionViewCell
 
+@property (nonatomic) NSInteger value;
+
 @end
