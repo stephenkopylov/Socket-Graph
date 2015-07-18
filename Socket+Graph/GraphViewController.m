@@ -46,10 +46,4 @@
 }
 
 
-- (void)plotsManager:(PlotsManager *)manager didRecievePoint:(PlotPoint *)point
-{
-    [_plotVIew addPoint:point];
-}
-
-
 @end

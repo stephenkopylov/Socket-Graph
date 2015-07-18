@@ -12,6 +12,7 @@
 @interface PlotView : UIView
 
 - (void)drawPlot:(NSArray *)points;
-- (void)addPoint:(PlotPoint *)point;
+
+- (void)clear;
 
 @end

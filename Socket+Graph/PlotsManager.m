@@ -8,6 +8,7 @@
 
 #import "PlotsManager.h"
 #import "NotificationsManager.h"
+#import "SubscriptionsManager.h"
 
 static PlotsManager *sharedManager;
 
@@ -51,10 +52,10 @@ static NSString *const PointsKey = @"points";
     PlotPoint *firstPoint = points.firstObject;
     
     if ( firstPoint ) {
-        _plots[firstPoint.assetId] = points;
+        _plots[firstPoint.assetId] = [self filterPoints:points];
         
-        if ( [_delegate respondsToSelector:@selector(plotsManager:didRecievePlot:)] ) {
-            [_delegate plotsManager:self didRecievePlot:points];
+        if ( [_delegate respondsToSelector:@selector(plotsManager:didRecievePlot:)] && [firstPoint.assetId isEqualToNumber:[SubscriptionsManager sharedManager].currentSubscription] ) {
+            [_delegate plotsManager:self didRecievePlot:_plots[firstPoint.assetId]];
         }
     }
 }
@@ -74,11 +75,30 @@ static NSString *const PointsKey = @"points";
         newPoints = [NSMutableArray arrayWithObject:point];
     }
     
-    _plots[point.assetId] = newPoints.copy;
+    _plots[point.assetId] = [self filterPoints:newPoints.copy];
     
-    if ( [_delegate respondsToSelector:@selector(plotsManager:didRecievePoint:)] ) {
-        [_delegate plotsManager:self didRecievePoint:point];
+    if ( [_delegate respondsToSelector:@selector(plotsManager:didRecievePlot:)] && [point.assetId isEqualToNumber:[SubscriptionsManager sharedManager].currentSubscription] ) {
+        [_delegate plotsManager:self didRecievePlot:_plots[point.assetId]];
     }
+}
+
+
+- (NSArray *)filterPoints:(NSArray *)points
+{
+    PlotPoint *firstPoint = points.firstObject;
+    NSArray *filteredArray = [points subarrayWithRange:NSMakeRange(points.count-20, 20)];
+    
+    
+    /*
+    if ( firstPoint ) {
+        filteredArray = [[points.copy rac_sequence] filter:^BOOL (id value) {
+            PlotPoint *point =  (PlotPoint *)value;
+            return point.time.
+        }].mutableCopy;
+    }
+     */
+    
+    return filteredArray;
 }
 
 

@@ -1,4 +1,11 @@
 PODS:
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
   - Realm (0.93.2):
     - Realm/Headers (= 0.93.2)
   - Realm+JSON (0.2.10):
@@ -7,13 +14,15 @@ PODS:
   - SocketRocket (0.4)
 
 DEPENDENCIES:
+  - ReactiveCocoa
   - Realm
   - Realm+JSON
   - SocketRocket
 
 SPEC CHECKSUMS:
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   Realm: 2fdd0ae74f730e190384e0338d8a0d3654df8220
   Realm+JSON: 9a6ad2bd16fc4b9a646aaaaf24c4aa6e9ffda09e
   SocketRocket: 01443933b7bc362621325f4607b80b4286a99707
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.37.2

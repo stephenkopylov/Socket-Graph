@@ -10,5 +10,6 @@
 #define Socket_Graph_PrefixHeader_pch
 
 #import "Defines.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 #endif

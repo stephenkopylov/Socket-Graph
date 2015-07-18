@@ -14,7 +14,6 @@
 @protocol PlotsManagerDelegate <NSObject>
 
 - (void)plotsManager:(PlotsManager *)manager didRecievePlot:(NSArray *)points;
-- (void)plotsManager:(PlotsManager *)manager didRecievePoint:(PlotPoint *)point;
 
 @end
 
