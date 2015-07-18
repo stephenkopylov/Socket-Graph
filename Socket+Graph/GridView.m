@@ -31,8 +31,6 @@
             [_lines addObject:line];
         }
         
-        NSMutableArray *innerLines = [NSMutableArray new];
-        
         [_lines enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             GridLineView *line = (GridLineView *)obj;
             
@@ -47,31 +45,14 @@
                 [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[line]|" options:0 metrics:nil views:@{ @"line": line }]];
             }
             else {
-                [innerLines addObject:line];
+                CGFloat multiplier = (2 * (idx - 1) + 2) / (CGFloat)((HORIZONTAL_LINES_COUNT - 2) + 1);
+                NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:line attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:multiplier constant:0];
+                [self  addConstraint:constraint];
             }
         }];
-        
-        
-        [self addConstraints:[self constraintsForEvenDistributionOfItems:innerLines relativeToCenterOfItem:self vertically:YES]];
     }
     
     return self;
-}
-
-
-- (NSArray *)constraintsForEvenDistributionOfItems:(NSArray *)views relativeToCenterOfItem:(id)toView vertically:(BOOL)vertically
-{
-    NSMutableArray *constraints = [NSMutableArray new];
-    NSLayoutAttribute attr = vertically ? NSLayoutAttributeCenterY : NSLayoutAttributeCenterX;
-    
-    for ( NSUInteger i = 0; i < [views count]; i++ ) {
-        id view = views[i];
-        CGFloat multiplier = (2 * i + 2) / (CGFloat)([views count] + 1);
-        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:view attribute:attr relatedBy:NSLayoutRelationEqual toItem:toView attribute:attr multiplier:multiplier constant:0];
-        [constraints addObject:constraint];
-    }
-    
-    return constraints;
 }
 
 

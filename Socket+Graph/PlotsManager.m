@@ -7,8 +7,9 @@
 //
 
 #import "PlotsManager.h"
-#import "NotificationsManager.h"
 #import "SubscriptionsManager.h"
+
+#define MAX_POINT_PER_PLOT 150
 
 static PlotsManager *sharedManager;
 
@@ -85,8 +86,8 @@ static NSString *const PointsKey = @"points";
 
 - (NSArray *)filterPoints:(NSArray *)points
 {
-    if ( points.count > 100 ) {
-        NSArray *filteredArray = [points subarrayWithRange:NSMakeRange(points.count - 100, 100)];
+    if ( points.count > MAX_POINT_PER_PLOT ) {
+        NSArray *filteredArray = [points subarrayWithRange:NSMakeRange(points.count - MAX_POINT_PER_PLOT, MAX_POINT_PER_PLOT)];
         return filteredArray;
     }
     

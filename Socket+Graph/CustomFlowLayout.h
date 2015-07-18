@@ -9,8 +9,8 @@
 
 #import <UIKit/UIKit.h>
 
-#define IS_LANDSCAPE UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
-#define IS_PORTRAIT UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)
+#define IS_LANDSCAPE UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
+#define IS_PORTRAIT  UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)
 
 typedef NS_ENUM (NSUInteger, CollectionViewCells) {
     CollectionViewCellsFirst,

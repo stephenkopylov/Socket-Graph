@@ -9,7 +9,6 @@
 #import "LoadingScreenViewController.h"
 #import "SocketManager.h"
 #import "MainViewController.h"
-#import "NotificationsManager.h"
 
 @interface LoadingScreenViewController ()
 

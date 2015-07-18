@@ -14,6 +14,8 @@ extern NSString *const SMProfileRecievedNotification;
 extern NSString *const SMAssetsRecievedNotification;
 extern NSString *const SMAssetsHistoryRecievedNotification;
 extern NSString *const SMPointRecievedNotification;
+extern NSString *const SMSubscriptionRequested;
+
 
 @interface NotificationsManager : NSObject
 

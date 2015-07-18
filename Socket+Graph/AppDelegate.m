@@ -70,7 +70,7 @@
     
     [socketManager getUserInfo];
     
-    UserManager *userManager = [UserManager sharedManager];
+    [UserManager sharedManager];
 }
 
 

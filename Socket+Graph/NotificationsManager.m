@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Admin. All rights reserved.
 //
 
-#import "NotificationsManager.h"
+
 
 NSString *const SMConnectedNotification = @"SMConnectedNotification";
 NSString *const SMErrorNotification = @"SMErrorNotification";
@@ -14,6 +14,8 @@ NSString *const SMProfileRecievedNotification = @"SMProfileRecievedNotification"
 NSString *const SMAssetsRecievedNotification = @"SMAssetsRecievedNotification";
 NSString *const SMAssetsHistoryRecievedNotification = @"SMAssetsHistoryRecievedNotification";
 NSString *const SMPointRecievedNotification = @"SMPointRecievedNotification";
+
+NSString *const SMSubscriptionRequested = @"SMSubscriptionRequested";
 
 @implementation NotificationsManager
 

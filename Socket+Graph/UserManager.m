@@ -8,7 +8,6 @@
 
 #import "UserManager.h"
 #import "SocketManager.h"
-#import "NotificationsManager.h"
 
 static UserManager *sharedManager;
 

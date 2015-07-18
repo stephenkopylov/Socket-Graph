@@ -11,7 +11,6 @@
 #import "UserManager.h"
 #import "SocketManager.h"
 #import "Asset.h"
-#import "NotificationsManager.h"
 #import "PlotPoint.h"
 #import "SubscriptionsManager.h"
 
@@ -103,6 +102,7 @@
 
 - (void)dropDownMenu:(DropDownMenu *)dropDownMenu didSeletItem:(DropDownMenuItem *)item
 {
+    [NotificationsManager postNotificationWithName:SMSubscriptionRequested andObject:nil];
     [SubscriptionsManager subscribeTo:item.itemId];
 }
 

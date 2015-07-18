@@ -7,7 +7,6 @@
 //
 
 #import "PlotPoint.h"
-#import "NotificationsManager.h"
 #import "SubscriptionsManager.h"
 
 

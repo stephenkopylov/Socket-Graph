@@ -8,7 +8,6 @@
 
 #import "SubscriptionsManager.h"
 #import "SocketManager.h"
-#import "NotificationsManager.h"
 
 static SubscriptionsManager *sharedManager;
 

@@ -13,6 +13,4 @@
 
 - (void)drawPlot:(NSArray *)points;
 
-- (void)clear;
-
 @end

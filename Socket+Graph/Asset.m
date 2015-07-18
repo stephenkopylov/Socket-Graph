@@ -8,7 +8,6 @@
 
 #import "Asset.h"
 #import <Realm+JSON/RLMObject+JSON.h>
-#import "NotificationsManager.h"
 
 static NSString *const AssetsKey = @"assets";
 

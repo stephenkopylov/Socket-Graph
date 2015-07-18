@@ -26,7 +26,6 @@
         [self addSubview:_line];
         
         _valueLabel = [UILabel new];
-        _valueLabel.text = @"123";
         _valueLabel.textAlignment = NSTextAlignmentRight;
         _valueLabel.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7];
         _valueLabel.font = [UIFont boldSystemFontOfSize:8];

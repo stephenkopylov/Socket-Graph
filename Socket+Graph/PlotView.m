@@ -7,54 +7,60 @@
 //
 
 #import "PlotView.h"
-#import "LineContainer.h"
 #import "GridView.h"
 #import "IndicatorView.h"
 #import "TimeBarCell.h"
 
-#define timeOffsetX      0.4
-#define horizontalMargin 0
-#define verticalMargin   40
-#define POINT_SIZE       6
+#define TIME_OFFSET_X   0.6
+#define VERTICAL_MARGIN 40
+#define POINT_SIZE      6
 
 NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdentifier";
 
 @implementation PlotView {
-    NSNumber *_minVal;
+    NSMutableArray *_points;
     
+    NSNumber *_minVal;
     NSNumber *_maxVal;
     
+    NSInteger _startTime;
     CGFloat _diff;
-    
     CGFloat _yStep;
+    CGFloat _timeBarOffset;
     
-    CAShapeLayer *_lineLayer;
+    CAShapeLayer *_strokeLayer;
     CAShapeLayer *_fillLayer;
+    CAGradientLayer *_gradientLayer;
     
     UIBezierPath *_strokePath;
     UIBezierPath *_oldStrokePath;
     
+    UIBezierPath *_fillPath;
+    UIBezierPath *_oldFillPath;
     
-    NSInteger _startTime;
-    
-    NSMutableArray *_points;
-    NSMutableArray *_prevPoints;
     
     UIScrollView *_scrollView;
-    
     UIView *_containerView;
-    
     GridView *_gridView;
-    
     UIView *_pointView;
-    
     IndicatorView *_indicatorView;
+    UICollectionView *_timeCollectionView;
+    UIActivityIndicatorView *_activity;
     
     NSLayoutConstraint *_indicatorCenterYConstraint;
     
-    CAGradientLayer *_gradientLayer;
+    BOOL _readyToAnimate;
     
-    UICollectionView *_timeCollectionView;
+    dispatch_source_t _timer;
+}
+
+- (void)dealloc
+{
+    if ( _timer ) {
+        dispatch_source_cancel(_timer);
+    }
+    
+    _scrollView.delegate = nil;
 }
 
 
@@ -63,7 +69,9 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     self = [super init];
     
     if ( self ) {
-        _points = [NSMutableArray new];
+        _timeBarOffset = 0;
+        
+        _readyToAnimate = YES;
         
         _gridView = [GridView new];
         _gridView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -76,19 +84,18 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         _scrollView.delegate = self;
         [self addSubview:_scrollView];
         
-        
         _containerView = [[UIView alloc] initWithFrame:self.bounds];
-        
         [_scrollView addSubview:_containerView];
         
         _pointView = [UIView new];
+        _pointView.alpha = 0;
         _pointView.frame = CGRectMake(0, 0, POINT_SIZE, POINT_SIZE);
         _pointView.layer.cornerRadius = POINT_SIZE / 2;
         _pointView.backgroundColor = [UIColor orangeColor];
-        
         [self addSubview:_pointView];
         
         _indicatorView = [IndicatorView new];
+        _indicatorView.alpha = 0;
         _indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_indicatorView];
         
@@ -108,8 +115,13 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         _timeCollectionView.delegate = self;
         _timeCollectionView.dataSource = self;
         [_timeCollectionView registerClass:[TimeBarCell class] forCellWithReuseIdentifier:TimeCollectionViewCellIdentifier];
-        
         [self addSubview:_timeCollectionView];
+        
+        
+        _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _activity.translatesAutoresizingMaskIntoConstraints = NO;
+        [_activity startAnimating];
+        [self addSubview:_activity];
         
         NSDictionary *views = @{
                                 @"scrollView": _scrollView,
@@ -122,57 +134,48 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollView]|" options:0 metrics:nil views:views]];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[gridView]|" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(verticalMargin)-[gridView]-verticalMargin-|" options:0 metrics:@{ @"verticalMargin": @(verticalMargin) } views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(verticalMargin)-[gridView]-verticalMargin-|" options:0 metrics:@{ @"verticalMargin": @(VERTICAL_MARGIN) } views:views]];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[indicator]|" options:0 metrics:nil views:views]];
-        
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_indicatorView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:1 constant:20]];
-        
         _indicatorCenterYConstraint = [NSLayoutConstraint constraintWithItem:_indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0];
         [self addConstraint:_indicatorCenterYConstraint];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[time]|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[time]|" options:0 metrics:nil views:views]];
-        
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_timeCollectionView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:1 constant:10]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_activity attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_activity attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
     
     return self;
 }
 
 
-- (void)didMoveToSuperview
-{
-}
-
-
 - (void)layoutSubviews
 {
-    if ( !_lineLayer ) {
-        _lineLayer = [[CAShapeLayer alloc] init];
-        _lineLayer.bounds = _containerView.bounds;
-        _lineLayer.strokeColor = [UIColor whiteColor].CGColor;
-        _lineLayer.fillColor = [UIColor clearColor].CGColor;
-        _lineLayer.lineWidth = 1.5;
-        
-        [_containerView.layer addSublayer:_lineLayer];
+    if ( !_strokeLayer ) {
+        _strokeLayer = [[CAShapeLayer alloc] init];
+        _strokeLayer.bounds = _containerView.bounds;
+        _strokeLayer.strokeColor = [UIColor whiteColor].CGColor;
+        _strokeLayer.fillColor = [UIColor clearColor].CGColor;
+        _strokeLayer.lineWidth = 1.5;
+        [_containerView.layer addSublayer:_strokeLayer];
     }
     
     if ( !_fillLayer ) {
         _fillLayer = [[CAShapeLayer alloc] init];
         _fillLayer.bounds = _containerView.bounds;
         _fillLayer.strokeColor = [UIColor clearColor].CGColor;
-        _fillLayer.fillColor = [[UIColor blueColor] colorWithAlphaComponent:0.2].CGColor;
+        _fillLayer.fillColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3].CGColor;
         _fillLayer.lineWidth = 1.f;
-        
         [_containerView.layer addSublayer:_fillLayer];
     }
     
     if ( !CGRectEqualToRect(self.bounds, _gradientLayer.frame)) {
         _gradientLayer.frame = self.bounds;
     }
-    
-    //[self refresh];
 }
 
 
@@ -181,6 +184,7 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
 - (void)drawPlot:(NSArray *)points
 {
     BOOL redraw = NO;
+    
     CGFloat xShift = 0;
     
     if ( points.count == _points.count ) {
@@ -205,14 +209,12 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         _points = points.mutableCopy;
     }
     
-    PlotPoint *firstPoint = _points.firstObject;
-    
-    _startTime = firstPoint.time.integerValue;
+    _startTime =  ((PlotPoint *)_points.firstObject).time.integerValue;
     
     [self calculateMinMax];
     [self generatePath:_points];
     
-    if ( _strokePath ) {
+    if ( _strokeLayer.path ) {
         _points = points.mutableCopy;
         
         if ( redraw ) {
@@ -220,13 +222,13 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
                 CGAffineTransform transform = CGAffineTransformMakeTranslation(xShift, 0);
                 [_strokePath applyTransform:transform];
                 [self generatePath:_points];
-                _lineLayer.path = _strokePath.CGPath;
+                _strokeLayer.path = _strokePath.CGPath;
+                _fillLayer.path = _fillPath.CGPath;
             });
             
             [UIView animateWithDuration:0.2 animations:^{
-                CGPoint offset = _timeCollectionView.contentOffset;
-                offset.x += xShift;
-                _timeCollectionView.contentOffset = offset;
+                _timeBarOffset += xShift;
+                [self refreshCollectionView];
             }];
         }
         
@@ -236,19 +238,44 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         strokeAnimation.toValue = (id)_strokePath.CGPath;
         strokeAnimation.removedOnCompletion = NO;
         strokeAnimation.fillMode = kCAFillModeBoth;
-        [_lineLayer addAnimation:strokeAnimation forKey:@"path"];
+        [_strokeLayer addAnimation:strokeAnimation forKey:@"path"];
+        
+        CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+        fillAnimation.duration = 0.2;
+        fillAnimation.fromValue = (id)_oldFillPath.CGPath;
+        fillAnimation.toValue = (id)_fillPath.CGPath;
+        fillAnimation.removedOnCompletion = NO;
+        fillAnimation.fillMode = kCAFillModeBoth;
+        [_fillLayer addAnimation:fillAnimation forKey:@"path"];
         
         _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
-        [UIView animateWithDuration:0.2 animations:^{
+        
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             [self layoutIfNeeded];
             [self refreshPoint];
-        }];
+        } completion:nil];
     }
     else {
         [_timeCollectionView reloadData];
-        _lineLayer.path = _strokePath.CGPath;
+        [_activity stopAnimating];
+        
+        _indicatorView.alpha = 1;
+        _pointView.alpha = 1;
+        
+        _strokeLayer.path = _strokePath.CGPath;
+        _fillLayer.path = _fillPath.CGPath;
+        
         _pointView.center = _strokePath.currentPoint;
+        
         _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
+        
+        [self layoutIfNeeded];
+        
+        [self refreshScrollView];
+        
+        if ( _strokePath.currentPoint.x > _scrollView.frame.size.width ) {
+            [_scrollView setContentOffset:CGPointMake(_scrollView.contentSize.width - _scrollView.frame.size.width, 0) animated:NO];
+        }
     }
     
     PlotPoint *_lastPoint = _points.lastObject;
@@ -256,10 +283,23 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     _indicatorView.value = _lastPoint.value.floatValue;
     
     [self refreshScrollView];
+    
+    if ( _strokePath.currentPoint.x > _scrollView.frame.size.width && _readyToAnimate ) {
+        [_scrollView setContentOffset:CGPointMake(_scrollView.contentSize.width - _scrollView.frame.size.width, 0) animated:YES];
+    }
 }
 
 
 #pragma mark - Private methods
+
+- (void)refresh
+{
+    if ( _points.count ) {
+        [self calculateMinMax];
+        [self drawPlot:_points];
+    }
+}
+
 
 - (void)refreshScrollView
 {
@@ -273,26 +313,18 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
 {
     CGPoint point = _strokePath.currentPoint;
     
-    point.x += _scrollView.contentOffset.x;
+    point.x -= _scrollView.contentOffset.x;
     _pointView.center = point;
 }
 
 
 - (void)refreshCollectionView
 {
-    CGPoint offset = _timeCollectionView.contentOffset;
+    CGPoint point = _scrollView.contentOffset;
     
-    offset.x += _scrollView.contentOffset.x;
-    _timeCollectionView.contentOffset = offset;
-}
-
-
-- (void)refresh
-{
-    if ( _points.count ) {
-        [self calculateMinMax];
-        [self drawPlot:_points];
-    }
+    point.x += _timeBarOffset;
+    
+    _timeCollectionView.contentOffset = point;
 }
 
 
@@ -300,6 +332,10 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
 {
     if ( _strokePath ) {
         _oldStrokePath = _strokePath;
+    }
+    
+    if ( _fillPath ) {
+        _oldFillPath = _fillPath;
     }
     
     UIBezierPath *path = [UIBezierPath bezierPath];
@@ -315,7 +351,15 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         }
     }];
     
-    _strokePath = path;
+    _strokePath = path.copy;
+    
+
+    [path addLineToPoint:CGPointMake(path.currentPoint.x+0.5, path.currentPoint.y+0.5)];
+    [path addLineToPoint:CGPointMake(path.currentPoint.x, 10000)];
+   [path addLineToPoint:CGPointMake(path.currentPoint.x+0.5, 10000+0.5)];
+    [path addLineToPoint:CGPointMake(0, 10000)];
+    
+    _fillPath = path.copy;
 }
 
 
@@ -323,13 +367,13 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
 {
     NSInteger seconds =  (point.time.integerValue - _startTime) / 100;
     
-    CGFloat x =  horizontalMargin + timeOffsetX * seconds;
+    CGFloat x = TIME_OFFSET_X * seconds;
     CGFloat y;
     
     if ( _yStep != 0 ) {
         CGFloat yPercents = (point.value.floatValue - _minVal.floatValue)  / _yStep;
         
-        y = self.bounds.size.height - verticalMargin - (self.bounds.size.height - verticalMargin * 2) / 100 * yPercents;
+        y = self.bounds.size.height - VERTICAL_MARGIN - (self.bounds.size.height - VERTICAL_MARGIN * 2) / 100 * yPercents;
     }
     else {
         y = self.bounds.size.height - self.bounds.size.height / 2;
@@ -351,15 +395,18 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         }
     }
     
-    NSArray *sortedArray = [currentPoints.copy sortedArrayUsingComparator:^NSComparisonResult (id a, id b) {
-        NSNumber *first = [(PlotPoint *)a value];
-        NSNumber *second = [(PlotPoint *)b value];
-        return [first compare:second];
-    }];
+    _minVal = @(MAXFLOAT);
+    _maxVal = @0;
     
-    _minVal = ((PlotPoint *)sortedArray.firstObject).value;
-    
-    _maxVal = ((PlotPoint *)sortedArray.lastObject).value;
+    for ( PlotPoint *point in currentPoints ) {
+        if ( point.value.floatValue > _maxVal.floatValue ) {
+            _maxVal = point.value;
+        }
+        
+        if ( point.value.floatValue < _minVal.floatValue ) {
+            _minVal = point.value;
+        }
+    }
     
     _diff = _maxVal.floatValue - _minVal.floatValue;
     
@@ -371,12 +418,35 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
 
 #pragma mark - UIScrollViewDelegate
 
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if ( scrollView == _scrollView ) {
         [self refreshPoint];
         [self refreshCollectionView];
+        
+        if ( scrollView.dragging ) {
+            _readyToAnimate = NO;
+        }
     }
+}
+
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    _readyToAnimate = NO;
+    
+    if ( _timer ) {
+        dispatch_source_cancel(_timer);
+    }
+    
+    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
+    dispatch_source_set_timer(_timer, dispatch_walltime(DISPATCH_TIME_NOW, NSEC_PER_SEC * 2), 0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(_timer, ^{
+        _readyToAnimate = YES;
+        dispatch_source_cancel(_timer);
+    });
+    dispatch_resume(_timer);
 }
 
 
@@ -394,7 +464,7 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     
     CGFloat centerOfCell = cell.frame.origin.x + cell.frame.size.width / 2;
     
-    NSInteger time = _startTime + centerOfCell / timeOffsetX * 100;
+    NSInteger time = _startTime + centerOfCell / TIME_OFFSET_X * 100;
     
     cell.value = time;
     

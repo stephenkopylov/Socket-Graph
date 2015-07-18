@@ -11,5 +11,6 @@
 
 #import "Defines.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import "NotificationsManager.h"
 
 #endif

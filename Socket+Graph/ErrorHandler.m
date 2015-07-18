@@ -9,7 +9,6 @@
 #import "ErrorHandler.h"
 #import "UIAlertController+Window.h"
 #import <UIKit/UIKit.h>
-#import "NotificationsManager.h"
 
 static NSString *const MessageKey = @"message";
 

@@ -15,8 +15,14 @@
 @end
 
 @implementation GraphViewController {
-    PlotView *_plotVIew;
+    PlotView *_plotView;
 }
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SMSubscriptionRequested object:nil];
+}
+
 
 - (void)viewDidLoad
 {
@@ -25,13 +31,31 @@
     
     [PlotsManager sharedManager].delegate = self;
     
-    _plotVIew = [PlotView new];
-    _plotVIew.translatesAutoresizingMaskIntoConstraints = NO;
-    _plotVIew.backgroundColor = [UIColor lightGrayColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subscriptionRequested) name:SMSubscriptionRequested object:nil];
+}
+
+
+#pragma mark - PrivateMethods
+
+- (void)subscriptionRequested
+{
+    [self addPlotView];
+}
+
+
+- (void)addPlotView
+{
+    if ( _plotView ) {
+        [_plotView removeFromSuperview];
+    }
     
-    [self.view addSubview:_plotVIew];
+    _plotView = [PlotView new];
+    _plotView.translatesAutoresizingMaskIntoConstraints = NO;
+    _plotView.backgroundColor = [UIColor lightGrayColor];
     
-    NSDictionary *views = @{ @"plot": _plotVIew };
+    [self.view addSubview:_plotView];
+    
+    NSDictionary *views = @{ @"plot": _plotView };
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[plot]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[plot]|" options:0 metrics:nil views:views]];
@@ -42,7 +66,7 @@
 
 - (void)plotsManager:(PlotsManager *)manager didRecievePlot:(NSArray *)points
 {
-    [_plotVIew drawPlot:points];
+    [_plotView drawPlot:points];
 }
 
 
