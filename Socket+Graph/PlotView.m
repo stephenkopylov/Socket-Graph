@@ -8,10 +8,13 @@
 
 #import "PlotView.h"
 #import "LineContainer.h"
+#import "GridView.h"
+#import "IndicatorView.h"
 
 #define timeOffsetX      0.4
-#define horizontalMargin 50
+#define horizontalMargin 0
 #define verticalMargin   60
+#define POINT_SIZE       6
 
 @implementation PlotView {
     NSNumber *_minVal;
@@ -25,17 +28,26 @@
     CAShapeLayer *_lineLayer;
     CAShapeLayer *_fillLayer;
     
-    UIBezierPath *_openPath;
-    UIBezierPath *_closedPath;
+    UIBezierPath *_strokePath;
+    UIBezierPath *_oldStrokePath;
     
     
     NSInteger _startTime;
     
     NSMutableArray *_points;
+    NSMutableArray *_prevPoints;
     
     UIScrollView *_scrollView;
     
     UIView *_containerView;
+    
+    GridView *_gridView;
+    
+    UIView *_pointView;
+    
+    IndicatorView *_indicatorView;
+    
+    NSLayoutConstraint *_indicatorCenterYConstraint;
 }
 
 
@@ -46,20 +58,51 @@
     if ( self ) {
         _points = [NSMutableArray new];
         
+        _gridView = [GridView new];
+        _gridView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_gridView];
+        
         _scrollView = [UIScrollView new];
         _scrollView.bounces = NO;
         _scrollView.alwaysBounceHorizontal = NO;
         _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+        _scrollView.delegate = self;
         [self addSubview:_scrollView];
         
-        NSDictionary *views = @{ @"scrollView": _scrollView };
-        
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[scrollView]|" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollView]|" options:0 metrics:nil views:views]];
         
         _containerView = [[UIView alloc] initWithFrame:self.bounds];
         
         [_scrollView addSubview:_containerView];
+        
+        _pointView = [UIView new];
+        _pointView.frame = CGRectMake(0, 0, POINT_SIZE, POINT_SIZE);
+        _pointView.layer.cornerRadius = POINT_SIZE / 2;
+        _pointView.backgroundColor = [UIColor redColor];
+        
+        [self addSubview:_pointView];
+        
+        _indicatorView = [IndicatorView new];
+        _indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_indicatorView];
+        
+        NSDictionary *views = @{
+                                @"scrollView": _scrollView,
+                                @"gridView": _gridView,
+                                @"indicator": _indicatorView
+                                };
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[scrollView]|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollView]|" options:0 metrics:nil views:views]];
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[gridView]|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(verticalMargin)-[gridView]-verticalMargin-|" options:0 metrics:@{ @"verticalMargin": @(verticalMargin) } views:views]];
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[indicator]|" options:0 metrics:nil views:views]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_indicatorView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:1 constant:20]];
+        
+        _indicatorCenterYConstraint = [NSLayoutConstraint constraintWithItem:_indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0];
+        [self addConstraint:_indicatorCenterYConstraint];
     }
     
     return self;
@@ -85,7 +128,6 @@
     
     if ( !_fillLayer ) {
         _fillLayer = [[CAShapeLayer alloc] init];
-        
         _fillLayer.bounds = _containerView.bounds;
         _fillLayer.strokeColor = [UIColor clearColor].CGColor;
         _fillLayer.fillColor = [[UIColor blueColor] colorWithAlphaComponent:0.2].CGColor;
@@ -93,6 +135,8 @@
         
         [_containerView.layer addSublayer:_fillLayer];
     }
+    
+    //[self refresh];
 }
 
 
@@ -100,13 +144,23 @@
 
 - (void)drawPlot:(NSArray *)points
 {
-    NSArray *newPoints = [self getNewPointsFromOldArray:_points andNewArray:points];
+    BOOL redraw = NO;
     
-    if ( !newPoints.count ) {
+    if ( points.count == _points.count ) {
+        PlotPoint *lastPoint = _points.lastObject;
+        
+        NSArray *newPoints = [[points rac_sequence] filter:^BOOL (id value) {
+            PlotPoint *currentPoint = (PlotPoint *)value;
+            return currentPoint.time.integerValue > lastPoint.time.integerValue;
+        }].array;
+        
+        redraw = YES;
+        
+        [_points addObjectsFromArray:newPoints];
+    }
+    else {
         _points = points.mutableCopy;
     }
-    
-    [_points addObjectsFromArray:newPoints];
     
     PlotPoint *firstPoint = _points.firstObject;
     
@@ -114,56 +168,43 @@
     
     [self calculateMinMax];
     
-    if ( _openPath ) {
-        UIBezierPath *oldStrokePath = _openPath.copy;
-        //UIBezierPath *oldFillPath = _openPath.copy;
-        //graphical glitches avoiding
-        // [oldFillPath addLineToPoint:CGPointMake(oldFillPath.currentPoint.x + 1, oldFillPath.currentPoint.y)];
-        //[oldFillPath addLineToPoint:CGPointMake(oldFillPath.currentPoint.x, self.bounds.size.height)];
-        //[oldFillPath addLineToPoint:CGPointMake(0, self.bounds.size.height)];
-        //_lineLayer.path = oldFillPath.CGPath;
-        
+    if ( _strokePath ) {
         [self generatePath:_points];
+        _points = points.mutableCopy;
         
-        CGFloat xShift = _openPath.currentPoint.x - oldStrokePath.currentPoint.x;
-        
-        //  [_openPath addLineToPoint:CGPointMake(_openPath.currentPoint.x+0.5, _openPath.currentPoint.y+0.5)];
-        
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-xShift, 0);
-        [_openPath applyTransform:transform];
+        if ( redraw ) {
+            CGFloat xShift = _strokePath.currentPoint.x - _oldStrokePath.currentPoint.x;
+            
+            CGAffineTransform transform = CGAffineTransformMakeTranslation(-xShift, 0);
+            [_strokePath applyTransform:transform];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                CGAffineTransform transform = CGAffineTransformMakeTranslation(xShift, 0);
+                [_strokePath applyTransform:transform];
+                [self generatePath:_points];
+                _lineLayer.path = _strokePath.CGPath;
+            });
+        }
         
         CABasicAnimation *strokeAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
         strokeAnimation.duration = 0.2;
-        strokeAnimation.fromValue = (id)oldStrokePath.CGPath;
-        strokeAnimation.toValue = (id)_openPath.CGPath;
+        strokeAnimation.fromValue = (id)_oldStrokePath.CGPath;
+        strokeAnimation.toValue = (id)_strokePath.CGPath;
         strokeAnimation.removedOnCompletion = NO;
         strokeAnimation.fillMode = kCAFillModeBoth;
         [_lineLayer addAnimation:strokeAnimation forKey:@"path"];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            CGAffineTransform transform = CGAffineTransformMakeTranslation(xShift, 0);
-            [_openPath applyTransform:transform];
-            _points = points.mutableCopy;
-            [self generatePath:_points];
-            _lineLayer.path = _openPath.CGPath;
-        });
-        
-        /*
-         CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
-         fillAnimation.duration = 0.2;
-         fillAnimation.fromValue = (id)oldFillPath.CGPath;
-         fillAnimation.toValue = (id)_closedPath.CGPath;
-         fillAnimation.removedOnCompletion = NO;
-         fillAnimation.fillMode = kCAFillModeRemoved;
-         [_fillLayer addAnimation:fillAnimation forKey:@"path"];
-         _fillLayer.path = _closedPath.CGPath;
-         */
+        _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
+        [UIView animateWithDuration:0.2 animations:^{
+            [self layoutIfNeeded];
+            [self refreshPoint];
+        }];
     }
     else {
         [self generatePath:_points];
-        
-        _lineLayer.path = _openPath.CGPath;
-        // _fillLayer.path = _closedPath.CGPath;
+        _lineLayer.path = _strokePath.CGPath;
+        _pointView.center = _strokePath.currentPoint;
+        _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
     }
     
     [self refreshScrollView];
@@ -172,41 +213,39 @@
 
 #pragma mark - Private methods
 
-- (NSArray *)getNewPointsFromOldArray:(NSArray *)oldArray andNewArray:(NSArray *)newArray
-{
-    NSMutableArray *newPoints = [NSMutableArray new];
-    PlotPoint *lastPlotPoint = oldArray.lastObject;
-    
-    if ( lastPlotPoint ) {
-        [newArray enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            PlotPoint *currentPlotPoint = (PlotPoint *)obj;
-            
-            if ( ![currentPlotPoint.time isEqualToNumber:lastPlotPoint.time] ) {
-                [newPoints insertObject:currentPlotPoint atIndex:0];
-            }
-            else {
-                *stop = YES;
-            }
-        }];
-    }
-    
-    return newPoints.copy;
-}
-
-
 - (void)refreshScrollView
 {
-    CGRect rect = CGRectMake(0, 0, _openPath.bounds.size.width + 100, self.bounds.size.height);
+    CGRect rect = CGRectMake(0, 0, _strokePath.bounds.size.width + 100, self.bounds.size.height);
     
     _scrollView.contentSize = rect.size;
 }
 
 
+- (void)refreshPoint
+{
+    CGPoint point = _strokePath.currentPoint;
+    
+    point.x -= _scrollView.contentOffset.x;
+    _pointView.center = point;
+}
+
+
+- (void)refresh
+{
+    if ( _points.count ) {
+        [self calculateMinMax];
+        [self drawPlot:_points];
+    }
+}
+
+
 - (void)generatePath:(NSArray *)points
 {
-    UIBezierPath *path = [UIBezierPath bezierPath];
+    if ( _strokePath ) {
+        _oldStrokePath = _strokePath;
+    }
     
-    //[path moveToPoint:CGPointMake(0, self.bounds.size.height)];
+    UIBezierPath *path = [UIBezierPath bezierPath];
     
     [points enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         CGPoint newPoint = [self convertPoint:(PlotPoint *)obj];
@@ -216,15 +255,10 @@
         }
         else {
             [path addLineToPoint:newPoint];
-            //[path addLineToPoint:CGPointMake(newPoint.x+0.5, newPoint.y+0.5)];
         }
     }];
     
-    _openPath = path;
-    
-    //_closedPath = _openPath.copy;
-    //[_closedPath addLineToPoint:CGPointMake([self convertPoint:(PlotPoint *)points.lastObject].x, self.bounds.size.height + 1)];
-    //[_closedPath addLineToPoint:CGPointMake(0, self.bounds.size.height + 1)];
+    _strokePath = path;
 }
 
 
@@ -273,6 +307,13 @@
     _diff = _maxVal.floatValue - _minVal.floatValue;
     
     _yStep = _diff / 100;
+}
+
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self refreshPoint];
 }
 
 

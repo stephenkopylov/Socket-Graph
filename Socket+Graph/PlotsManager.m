@@ -87,8 +87,8 @@ static NSString *const PointsKey = @"points";
 {
     PlotPoint *firstPoint = points.firstObject;
     
-    NSArray *filteredArray = points;
-    
+    //NSArray *filteredArray = [points subarrayWithRange:NSMakeRange(points.count - 30, 30)];
+    /*
     if ( firstPoint ) {
         RACSequence *mapped = [[points rac_sequence] filter:^BOOL (id value) {
             return YES;
@@ -96,8 +96,9 @@ static NSString *const PointsKey = @"points";
         
         filteredArray = mapped.array;
     }
+    */
     
-    return filteredArray;
+    return points;
 }
 
 

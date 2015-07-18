@@ -23,6 +23,8 @@
 		8463D7111B585A1700AC0ACE /* NotificationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D7101B585A1700AC0ACE /* NotificationsManager.m */; };
 		8463D7171B585BC200AC0ACE /* PlotPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D7161B585BC200AC0ACE /* PlotPoint.m */; };
 		8463D71A1B58631B00AC0ACE /* SubscriptionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463D7191B58631B00AC0ACE /* SubscriptionsManager.m */; };
+		8472FA651B5A9BD200BC8C9A /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8472FA641B5A9BD200BC8C9A /* GridView.m */; };
+		8472FA681B5AA99500BC8C9A /* IndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8472FA671B5AA99500BC8C9A /* IndicatorView.m */; };
 		8475912D1B55C80900DD2BA2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912C1B55C80900DD2BA2 /* User.m */; };
 		847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912F1B55CC3F00DD2BA2 /* LoadingScreenViewController.m */; };
 		849397641B55C3010067AEAA /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849397631B55C3010067AEAA /* UserManager.m */; };
@@ -83,6 +85,10 @@
 		8463D7161B585BC200AC0ACE /* PlotPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotPoint.m; sourceTree = "<group>"; };
 		8463D7181B58631B00AC0ACE /* SubscriptionsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionsManager.h; sourceTree = "<group>"; };
 		8463D7191B58631B00AC0ACE /* SubscriptionsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionsManager.m; sourceTree = "<group>"; };
+		8472FA631B5A9BD200BC8C9A /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
+		8472FA641B5A9BD200BC8C9A /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
+		8472FA661B5AA99500BC8C9A /* IndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndicatorView.h; sourceTree = "<group>"; };
+		8472FA671B5AA99500BC8C9A /* IndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndicatorView.m; sourceTree = "<group>"; };
 		8475912B1B55C80900DD2BA2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8475912C1B55C80900DD2BA2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		8475912E1B55CC3F00DD2BA2 /* LoadingScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingScreenViewController.h; path = ../LoadingScreenViewController.h; sourceTree = "<group>"; };
@@ -267,6 +273,8 @@
 				84F7BDB51B583731001BAF52 /* Asset.m */,
 				8463D7151B585BC200AC0ACE /* PlotPoint.h */,
 				8463D7161B585BC200AC0ACE /* PlotPoint.m */,
+				8472FA661B5AA99500BC8C9A /* IndicatorView.h */,
+				8472FA671B5AA99500BC8C9A /* IndicatorView.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -300,6 +308,8 @@
 				EE3B1B5E1B58F348003ECD3E /* PlotView.m */,
 				84C7CF401B5A6221008BA741 /* LineContainer.h */,
 				84C7CF411B5A6221008BA741 /* LineContainer.m */,
+				8472FA631B5A9BD200BC8C9A /* GridView.h */,
+				8472FA641B5A9BD200BC8C9A /* GridView.m */,
 			);
 			name = PlotView;
 			sourceTree = "<group>";
@@ -449,6 +459,7 @@
 			files = (
 				8463D71A1B58631B00AC0ACE /* SubscriptionsManager.m in Sources */,
 				EE1814741B57A61200414C2F /* DropDownMenuTableViewCell.m in Sources */,
+				8472FA681B5AA99500BC8C9A /* IndicatorView.m in Sources */,
 				EE3B1B591B58E178003ECD3E /* AlertViewController.m in Sources */,
 				8463D70A1B5854E500AC0ACE /* ErrorHandler.m in Sources */,
 				843DB87B1B56F6110078367C /* RatesViewController.m in Sources */,
@@ -465,6 +476,7 @@
 				8475912D1B55C80900DD2BA2 /* User.m in Sources */,
 				849397641B55C3010067AEAA /* UserManager.m in Sources */,
 				84F7BDB61B583731001BAF52 /* Asset.m in Sources */,
+				8472FA651B5A9BD200BC8C9A /* GridView.m in Sources */,
 				84C182AD1B57093500329139 /* DropDownMenu.m in Sources */,
 				849666221B55ACA1000C985D /* SocketManager.m in Sources */,
 				843DB8731B56EE730078367C /* CustomFlowLayout.m in Sources */,
