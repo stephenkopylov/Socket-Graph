@@ -28,6 +28,7 @@
 		849397641B55C3010067AEAA /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849397631B55C3010067AEAA /* UserManager.m */; };
 		849666221B55ACA1000C985D /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849666211B55ACA1000C985D /* SocketManager.m */; };
 		84C182AD1B57093500329139 /* DropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C182AC1B57093500329139 /* DropDownMenu.m */; };
+		84C7CF421B5A6221008BA741 /* LineContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7CF411B5A6221008BA741 /* LineContainer.m */; };
 		84F7BDB61B583731001BAF52 /* Asset.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BDB51B583731001BAF52 /* Asset.m */; };
 		B99976213AE67CBC7BB42822 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */; };
 		EE1814741B57A61200414C2F /* DropDownMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */; };
@@ -92,6 +93,8 @@
 		849666211B55ACA1000C985D /* SocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
 		84C182AB1B57093500329139 /* DropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownMenu.h; sourceTree = "<group>"; };
 		84C182AC1B57093500329139 /* DropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownMenu.m; sourceTree = "<group>"; };
+		84C7CF401B5A6221008BA741 /* LineContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineContainer.h; sourceTree = "<group>"; };
+		84C7CF411B5A6221008BA741 /* LineContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineContainer.m; sourceTree = "<group>"; };
 		84F7BDB41B583731001BAF52 /* Asset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Asset.h; sourceTree = "<group>"; };
 		84F7BDB51B583731001BAF52 /* Asset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Asset.m; sourceTree = "<group>"; };
 		BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,16 +274,34 @@
 		84C182AA1B57091C00329139 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				84C7CF3F1B5A620A008BA741 /* PlotView */,
+				84C7CF3E1B5A61FE008BA741 /* DropDownMenu */,
+			);
+			name = Custom;
+			sourceTree = "<group>";
+		};
+		84C7CF3E1B5A61FE008BA741 /* DropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
 				84C182AB1B57093500329139 /* DropDownMenu.h */,
 				84C182AC1B57093500329139 /* DropDownMenu.m */,
 				EE1814721B57A61200414C2F /* DropDownMenuTableViewCell.h */,
 				EE1814731B57A61200414C2F /* DropDownMenuTableViewCell.m */,
 				8463D7051B583FD200AC0ACE /* DropDownMenuItem.h */,
 				8463D7061B583FD200AC0ACE /* DropDownMenuItem.m */,
+			);
+			name = DropDownMenu;
+			sourceTree = "<group>";
+		};
+		84C7CF3F1B5A620A008BA741 /* PlotView */ = {
+			isa = PBXGroup;
+			children = (
 				EE3B1B5D1B58F348003ECD3E /* PlotView.h */,
 				EE3B1B5E1B58F348003ECD3E /* PlotView.m */,
+				84C7CF401B5A6221008BA741 /* LineContainer.h */,
+				84C7CF411B5A6221008BA741 /* LineContainer.m */,
 			);
-			name = Custom;
+			name = PlotView;
 			sourceTree = "<group>";
 		};
 		CB41017FC180A4EC52711060 /* Pods */ = {
@@ -447,6 +468,7 @@
 				84C182AD1B57093500329139 /* DropDownMenu.m in Sources */,
 				849666221B55ACA1000C985D /* SocketManager.m in Sources */,
 				843DB8731B56EE730078367C /* CustomFlowLayout.m in Sources */,
+				84C7CF421B5A6221008BA741 /* LineContainer.m in Sources */,
 				843DB8811B56F88A0078367C /* MenuViewController.m in Sources */,
 				845918D11B55A93600D30AA5 /* main.m in Sources */,
 			);

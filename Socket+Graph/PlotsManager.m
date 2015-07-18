@@ -86,17 +86,16 @@ static NSString *const PointsKey = @"points";
 - (NSArray *)filterPoints:(NSArray *)points
 {
     PlotPoint *firstPoint = points.firstObject;
-    NSArray *filteredArray = [points subarrayWithRange:NSMakeRange(points.count-20, 20)];
     
+    NSArray *filteredArray = points;
     
-    /*
     if ( firstPoint ) {
-        filteredArray = [[points.copy rac_sequence] filter:^BOOL (id value) {
-            PlotPoint *point =  (PlotPoint *)value;
-            return point.time.
-        }].mutableCopy;
+        RACSequence *mapped = [[points rac_sequence] filter:^BOOL (id value) {
+            return YES;
+        }];
+        
+        filteredArray = mapped.array;
     }
-     */
     
     return filteredArray;
 }

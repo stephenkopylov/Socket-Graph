@@ -7,6 +7,7 @@
 //
 
 #import "PlotView.h"
+#import "LineContainer.h"
 
 #define timeOffsetX      0.4
 #define horizontalMargin 50
@@ -121,8 +122,6 @@
         //[oldFillPath addLineToPoint:CGPointMake(oldFillPath.currentPoint.x, self.bounds.size.height)];
         //[oldFillPath addLineToPoint:CGPointMake(0, self.bounds.size.height)];
         //_lineLayer.path = oldFillPath.CGPath;
-        
-
         
         [self generatePath:_points];
         
