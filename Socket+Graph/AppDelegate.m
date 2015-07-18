@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SocketManager.h"
 #import "UserManager.h"
+#import "PlotsManager.h"
 #import "LoadingScreenViewController.h"
 
 @interface AppDelegate ()
@@ -66,11 +67,11 @@
 
 - (void)setup
 {
-    SocketManager *socketManager = [SocketManager sharedManager];
-    
-    [socketManager getUserInfo];
+    [SocketManager sharedManager];
     
     [UserManager sharedManager];
+    
+    [PlotsManager sharedManager];
 }
 
 

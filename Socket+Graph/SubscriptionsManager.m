@@ -8,6 +8,7 @@
 
 #import "SubscriptionsManager.h"
 #import "SocketManager.h"
+#import "Asset.h"
 
 static SubscriptionsManager *sharedManager;
 
@@ -40,6 +41,7 @@ static SubscriptionsManager *sharedManager;
     if ( self ) {
         _subscriptions = [NSMutableArray new];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(assetsRecieved) name:SMAssetsRecievedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(errorRecieved) name:SMErrorNotification object:nil];
     }
     
@@ -64,6 +66,14 @@ static SubscriptionsManager *sharedManager;
     }
     
     return YES;
+}
+
+
+- (void)assetsRecieved
+{
+    Asset *firstAsset = [Asset allObjects].firstObject;
+    
+    [SubscriptionsManager subscribeTo:@(firstAsset.assetId)];
 }
 
 

@@ -82,10 +82,7 @@ static NSDictionary *serverActions;
     self = [super init];
     
     if ( self ) {
-        _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:SERVER_PATH]]];
-        _webSocket.delegate = self;
-        
-        [_webSocket open];
+        [self openSocket];
         
         _dataQueue = [NSMutableArray new];
     }
@@ -95,6 +92,23 @@ static NSDictionary *serverActions;
 
 
 #pragma mark - Custom methods
+
+- (void)foreground
+{
+    if ( _webSocket.readyState == SR_CLOSED ) {
+        [self openSocket];
+    }
+}
+
+
+- (void)openSocket
+{
+    _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:SERVER_PATH]]];
+    _webSocket.delegate = self;
+    
+    [_webSocket open];
+}
+
 
 - (void)getUserInfo
 {
@@ -130,8 +144,7 @@ static NSDictionary *serverActions;
         
         NSString *notificationName;
         
-        switch ( serverAction )
-        {
+        switch ( serverAction ) {
             case SMServerActionTypeError: {
                 [ErrorHandler showErrorWithMessage:message];
                 break;
@@ -189,7 +202,9 @@ static NSDictionary *serverActions;
 {
     _connected = YES;
     [NotificationsManager postNotificationWithName:SMConnectedNotification andObject:nil];
+    [self getUserInfo];
     [self runQueue];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foreground) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 
