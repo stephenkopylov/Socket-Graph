@@ -41,10 +41,17 @@ static NSString *const UserInfoBalanceKey = @"balance";
     self = [super init];
     
     if ( self ) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socketConnected) name:SMConnectedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoRecieved:) name:SMProfileRecievedNotification object:nil];
     }
     
     return self;
+}
+
+
+- (void)socketConnected
+{
+    [[SocketManager sharedManager] getUserInfo];
 }
 
 

@@ -202,7 +202,6 @@ static NSDictionary *serverActions;
 {
     _connected = YES;
     [NotificationsManager postNotificationWithName:SMConnectedNotification andObject:nil];
-    [self getUserInfo];
     [self runQueue];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foreground) name:UIApplicationDidBecomeActiveNotification object:nil];
 }

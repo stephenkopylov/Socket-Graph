@@ -34,6 +34,14 @@
 }
 
 
+-(void)didMoveToSuperview
+{
+    [UIView performWithoutAnimation:^{
+        [self layoutIfNeeded];
+    }];
+}
+
+
 - (void)setName:(NSString *)name
 {
     if ( ![name isEqualToString:_nameLabel.text] ) {
