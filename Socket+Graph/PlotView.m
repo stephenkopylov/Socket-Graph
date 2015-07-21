@@ -54,6 +54,9 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     BOOL _readyToAnimate;
     
     dispatch_source_t _timer;
+    UIButton *_test;
+    
+    CGFloat _timeOffsetX;
 }
 
 - (void)dealloc
@@ -71,6 +74,8 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     self = [super init];
     
     if ( self ) {
+        _timeOffsetX = TIME_OFFSET_X;
+        
         _timeBarOffset = 0;
         
         _readyToAnimate = YES;
@@ -111,6 +116,11 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         _plotLine.translatesAutoresizingMaskIntoConstraints = NO;
         [_containerView addSubview:_plotLine];
         
+        
+        _test = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        [_test setTitle:@"test" forState:UIControlStateNormal];
+        [_test addTarget:self action:@selector(changeXOffset) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_test];
         
         
         
@@ -225,23 +235,21 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         redraw = YES;
         
         [_points addObjectsFromArray:newPoints];
-        
-        [_plotLine addPoints:[[newPoints rac_sequence] map:^id (id value) {
-            return [NSValue valueWithCGPoint:[self convertPoint:value]];
-        }].array withXOffset:0];
     }
     else {
         _points = points.mutableCopy;
-        
-        [_plotLine addPoints:[[points rac_sequence] map:^id (id value) {
-            return [NSValue valueWithCGPoint:[self convertPoint:value]];
-        }].array withXOffset:0];
     }
-    
+   
     _startTime =  ((PlotPoint *)_points.firstObject).time.integerValue;
     
     [self calculateMinMax];
     [self generatePath:_points];
+    
+    [_plotLine addPoints:[[points rac_sequence] map:^id (id value) {
+        return [NSValue valueWithCGPoint:[self convertPoint:value]];
+    }].array withXOffset:0];
+    
+
     
     if ( _strokeLayer.path ) {
         _points = points.mutableCopy;
@@ -385,10 +393,10 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     
     _strokePath = path.copy;
     
-
-    [path addLineToPoint:CGPointMake(path.currentPoint.x+0.5, path.currentPoint.y+0.5)];
+    
+    [path addLineToPoint:CGPointMake(path.currentPoint.x + 0.5, path.currentPoint.y + 0.5)];
     [path addLineToPoint:CGPointMake(path.currentPoint.x, 10000)];
-   [path addLineToPoint:CGPointMake(path.currentPoint.x+0.5, 10000+0.5)];
+    [path addLineToPoint:CGPointMake(path.currentPoint.x + 0.5, 10000 + 0.5)];
     [path addLineToPoint:CGPointMake(0, 10000)];
     
     _fillPath = path.copy;
@@ -399,7 +407,7 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
 {
     NSInteger seconds =  (point.time.integerValue - _startTime) / 100;
     
-    CGFloat x = TIME_OFFSET_X * seconds;
+    CGFloat x = _timeOffsetX * seconds;
     CGFloat y;
     
     if ( _yStep != 0 ) {
@@ -507,6 +515,25 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(50, 10);
+}
+
+
+//-------------
+
+- (void)changeXOffset
+{
+    if ( _timeOffsetX == TIME_OFFSET_X ) {
+        _timeOffsetX = 0.1;
+    }
+    else {
+        _timeOffsetX = TIME_OFFSET_X;
+    }
+    
+    [self calculateMinMax];
+    
+    [_plotLine addPoints:[[_points rac_sequence] map:^id (id value) {
+        return [NSValue valueWithCGPoint:[self convertPoint:value]];
+    }].array withXOffset:0];
 }
 
 

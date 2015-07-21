@@ -13,6 +13,7 @@
 @property (nonatomic) NSArray *points;
 
 @property (nonatomic) UIBezierPath *strokePath;
+@property (nonatomic) UIBezierPath *oldStrokePath;
 
 @property (nonatomic)   CAShapeLayer *strokeLayer;
 
