@@ -10,6 +10,7 @@
 #import "GridView.h"
 #import "IndicatorView.h"
 #import "TimeBarCell.h"
+#import "PlotLine.h"
 
 #define TIME_OFFSET_X   0.6
 #define VERTICAL_MARGIN 40
@@ -46,6 +47,7 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     IndicatorView *_indicatorView;
     UICollectionView *_timeCollectionView;
     UIActivityIndicatorView *_activity;
+    PlotLine *_plotLine;
     
     NSLayoutConstraint *_indicatorCenterYConstraint;
     
@@ -104,6 +106,16 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         _gradientLayer.colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x3BFFFC).CGColor, (id)UIColorFromRGB(0x48A1FF).CGColor, nil];
         [self.layer insertSublayer:_gradientLayer atIndex:0];
         
+        
+        _plotLine = [PlotLine new];
+        _plotLine.translatesAutoresizingMaskIntoConstraints = NO;
+        [_containerView addSubview:_plotLine];
+        
+        
+        
+        
+        
+        
         UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         flowLayout.minimumInteritemSpacing = 0;
@@ -117,7 +129,6 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         [_timeCollectionView registerClass:[TimeBarCell class] forCellWithReuseIdentifier:TimeCollectionViewCellIdentifier];
         [self addSubview:_timeCollectionView];
         
-        
         _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         _activity.translatesAutoresizingMaskIntoConstraints = NO;
         [_activity startAnimating];
@@ -127,7 +138,8 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
                                 @"scrollView": _scrollView,
                                 @"gridView": _gridView,
                                 @"indicator": _indicatorView,
-                                @"time": _timeCollectionView
+                                @"time": _timeCollectionView,
+                                @"plotLine": _plotLine,
                                 };
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[scrollView]|" options:0 metrics:nil views:views]];
@@ -147,6 +159,12 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_activity attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_activity attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        
+        
+        
+        
+        [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[plotLine]|" options:0 metrics:nil views:views]];
+        [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[plotLine]|" options:0 metrics:nil views:views]];
     }
     
     return self;
@@ -172,6 +190,9 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         _fillLayer.lineWidth = 1.f;
         [_containerView.layer addSublayer:_fillLayer];
     }
+    
+    CGRect rect = CGRectMake(0, 0, _containerView.bounds.size.width, self.bounds.size.height);
+    _containerView.frame = rect;
     
     if ( !CGRectEqualToRect(self.bounds, _gradientLayer.frame)) {
         _gradientLayer.frame = self.bounds;
@@ -204,9 +225,17 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         redraw = YES;
         
         [_points addObjectsFromArray:newPoints];
+        
+        [_plotLine addPoints:[[newPoints rac_sequence] map:^id (id value) {
+            return [NSValue valueWithCGPoint:[self convertPoint:value]];
+        }].array withXOffset:0];
     }
     else {
         _points = points.mutableCopy;
+        
+        [_plotLine addPoints:[[points rac_sequence] map:^id (id value) {
+            return [NSValue valueWithCGPoint:[self convertPoint:value]];
+        }].array withXOffset:0];
     }
     
     _startTime =  ((PlotPoint *)_points.firstObject).time.integerValue;
@@ -306,6 +335,9 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     CGRect rect = CGRectMake(0, 0, _strokePath.bounds.size.width + 100, self.bounds.size.height);
     
     _scrollView.contentSize = rect.size;
+    
+    CGRect rect2 = CGRectMake(0, 0, _strokePath.bounds.size.width + 100, self.bounds.size.height);
+    _containerView.frame = rect2;
 }
 
 

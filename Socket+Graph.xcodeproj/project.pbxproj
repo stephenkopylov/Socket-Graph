@@ -31,6 +31,8 @@
 		847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475912F1B55CC3F00DD2BA2 /* LoadingScreenViewController.m */; };
 		849397641B55C3010067AEAA /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849397631B55C3010067AEAA /* UserManager.m */; };
 		849666221B55ACA1000C985D /* SocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 849666211B55ACA1000C985D /* SocketManager.m */; };
+		84A348FE1B5ED2CF00C8725F /* BaseLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A348FD1B5ED2CF00C8725F /* BaseLine.m */; };
+		84A349011B5ED32400C8725F /* PlotLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A349001B5ED32400C8725F /* PlotLine.m */; };
 		84C182AD1B57093500329139 /* DropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C182AC1B57093500329139 /* DropDownMenu.m */; };
 		84F7BDB61B583731001BAF52 /* Asset.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BDB51B583731001BAF52 /* Asset.m */; };
 		B99976213AE67CBC7BB42822 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E0DF6F9F96A5BB2BF6F3C /* libPods.a */; };
@@ -102,6 +104,10 @@
 		849397631B55C3010067AEAA /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		849666201B55ACA1000C985D /* SocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketManager.h; sourceTree = "<group>"; };
 		849666211B55ACA1000C985D /* SocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketManager.m; sourceTree = "<group>"; };
+		84A348FC1B5ED2CF00C8725F /* BaseLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseLine.h; sourceTree = "<group>"; };
+		84A348FD1B5ED2CF00C8725F /* BaseLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseLine.m; sourceTree = "<group>"; };
+		84A348FF1B5ED32400C8725F /* PlotLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotLine.h; sourceTree = "<group>"; };
+		84A349001B5ED32400C8725F /* PlotLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotLine.m; sourceTree = "<group>"; };
 		84C182AB1B57093500329139 /* DropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownMenu.h; sourceTree = "<group>"; };
 		84C182AC1B57093500329139 /* DropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownMenu.m; sourceTree = "<group>"; };
 		84F7BDB41B583731001BAF52 /* Asset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Asset.h; sourceTree = "<group>"; };
@@ -290,6 +296,17 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		84A348FB1B5ED2A600C8725F /* Lines */ = {
+			isa = PBXGroup;
+			children = (
+				84A348FC1B5ED2CF00C8725F /* BaseLine.h */,
+				84A348FD1B5ED2CF00C8725F /* BaseLine.m */,
+				84A348FF1B5ED32400C8725F /* PlotLine.h */,
+				84A349001B5ED32400C8725F /* PlotLine.m */,
+			);
+			name = Lines;
+			sourceTree = "<group>";
+		};
 		84C182AA1B57091C00329139 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,6 +332,7 @@
 		84C7CF3F1B5A620A008BA741 /* PlotView */ = {
 			isa = PBXGroup;
 			children = (
+				84A348FB1B5ED2A600C8725F /* Lines */,
 				8472FA661B5AA99500BC8C9A /* IndicatorView.h */,
 				8472FA671B5AA99500BC8C9A /* IndicatorView.m */,
 				EE3B1B5D1B58F348003ECD3E /* PlotView.h */,
@@ -482,6 +500,8 @@
 				845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */,
 				8463D70E1B5855F600AC0ACE /* UIAlertController+Window.m in Sources */,
 				843DB87E1B56F8790078367C /* GraphViewController.m in Sources */,
+				84A349011B5ED32400C8725F /* PlotLine.m in Sources */,
+				84A348FE1B5ED2CF00C8725F /* BaseLine.m in Sources */,
 				8463D7111B585A1700AC0ACE /* NotificationsManager.m in Sources */,
 				847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */,
 				8463D7171B585BC200AC0ACE /* PlotPoint.m in Sources */,
