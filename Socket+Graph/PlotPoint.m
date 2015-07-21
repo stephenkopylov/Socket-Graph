@@ -47,7 +47,7 @@ static NSString *const TimeKey = @"time";
         _assetId = dictionary[AssetIdKey];
         _name = dictionary[AssetNameKey];
         _value = dictionary[ValueKey];
-        _time = dictionary[TimeKey];
+        _time = @([dictionary[TimeKey] integerValue] * 1000);
     }
     
     return self;

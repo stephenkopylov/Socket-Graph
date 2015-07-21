@@ -14,6 +14,7 @@
     self = [super init];
     
     if ( self ) {
+        self.strokeLayer.strokeColor = [UIColor redColor].CGColor;
     }
     
     return self;

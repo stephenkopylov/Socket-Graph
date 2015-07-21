@@ -9,7 +9,7 @@
 #import "PlotsManager.h"
 #import "SubscriptionsManager.h"
 
-#define MAX_POINT_PER_PLOT 150
+#define MAX_POINT_PER_PLOT 30
 
 static PlotsManager *sharedManager;
 

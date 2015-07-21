@@ -245,7 +245,7 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     [self calculateMinMax];
     [self generatePath:_points];
     
-    [_plotLine addPoints:[[points rac_sequence] map:^id (id value) {
+    [_plotLine addPoints:[[_points rac_sequence] map:^id (id value) {
         return [NSValue valueWithCGPoint:[self convertPoint:value]];
     }].array withXOffset:0];
     
@@ -405,7 +405,7 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
 
 - (CGPoint)convertPoint:(PlotPoint *)point
 {
-    NSInteger seconds =  (point.time.integerValue - _startTime) / 100;
+    NSInteger seconds =  (point.time.integerValue - _startTime) / 100000;
     
     CGFloat x = _timeOffsetX * seconds;
     CGFloat y;
