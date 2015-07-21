@@ -15,6 +15,9 @@
     self = [super init];
     
     if ( self ) {
+        
+        _points = [NSArray new];
+        
         _strokeLayer = [[CAShapeLayer alloc] init];
         _strokeLayer.bounds = self.layer.bounds;
         _strokeLayer.strokeColor = [UIColor whiteColor].CGColor;
@@ -36,7 +39,7 @@
 
 - (void)addPoints:(NSArray *)points withXOffset:(CGFloat *)offset
 {
-    _points = points;
+    _points = [_points arrayByAddingObjectsFromArray:points];
     
     [self generatePath];
     

@@ -57,6 +57,8 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     UIButton *_test;
     
     CGFloat _timeOffsetX;
+    
+    NSInteger _pointsShift;
 }
 
 - (void)dealloc
@@ -74,6 +76,8 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     self = [super init];
     
     if ( self ) {
+        _pointsShift = 0;
+        
         _timeOffsetX = TIME_OFFSET_X;
         
         _timeBarOffset = 0;
@@ -121,6 +125,18 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         [_test setTitle:@"test" forState:UIControlStateNormal];
         [_test addTarget:self action:@selector(changeXOffset) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_test];
+        
+        
+        UIButton *_test1 = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, 100, 40)];
+        [_test1 setTitle:@"AddPoint" forState:UIControlStateNormal];
+        [_test1 addTarget:self action:@selector(addPoint) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_test1];
+        
+        
+        UIButton *_test2 = [[UIButton alloc] initWithFrame:CGRectMake(140, 0, 100, 40)];
+        [_test2 setTitle:@"AddPoints" forState:UIControlStateNormal];
+        [_test2 addTarget:self action:@selector(addPoints) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_test2];
         
         
         
@@ -239,91 +255,94 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     else {
         _points = points.mutableCopy;
     }
-   
+    
     _startTime =  ((PlotPoint *)_points.firstObject).time.integerValue;
     
     [self calculateMinMax];
     [self generatePath:_points];
+    /*
+     [_plotLine addPoints:[[_points rac_sequence] map:^id (id value) {
+     return [NSValue valueWithCGPoint:[self convertPoint:value]];
+     }].array withXOffset:0];
+     
+     
+     
+     if ( _strokeLayer.path ) {
+     _points = points.mutableCopy;
+     
+     if ( redraw ) {
+     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+     CGAffineTransform transform = CGAffineTransformMakeTranslation(xShift, 0);
+     [_strokePath applyTransform:transform];
+     [self generatePath:_points];
+     _strokeLayer.path = _strokePath.CGPath;
+     _fillLayer.path = _fillPath.CGPath;
+     });
+     
+     [UIView animateWithDuration:0.2 animations:^{
+     _timeBarOffset += xShift;
+     [self refreshCollectionView];
+     }];
+     }
+     
+     CABasicAnimation *strokeAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+     strokeAnimation.duration = 0.2;
+     strokeAnimation.fromValue = (id)_oldStrokePath.CGPath;
+     strokeAnimation.toValue = (id)_strokePath.CGPath;
+     strokeAnimation.removedOnCompletion = NO;
+     strokeAnimation.fillMode = kCAFillModeBoth;
+     [_strokeLayer addAnimation:strokeAnimation forKey:@"path"];
+     
+     CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+     fillAnimation.duration = 0.2;
+     fillAnimation.fromValue = (id)_oldFillPath.CGPath;
+     fillAnimation.toValue = (id)_fillPath.CGPath;
+     fillAnimation.removedOnCompletion = NO;
+     fillAnimation.fillMode = kCAFillModeBoth;
+     [_fillLayer addAnimation:fillAnimation forKey:@"path"];
+     
+     _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
+     
+     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+     [self layoutIfNeeded];
+     [self refreshPoint];
+     } completion:nil];
+     }
+     else {
+     [_timeCollectionView reloadData];
+     [_activity stopAnimating];
+     
+     _indicatorView.alpha = 1;
+     _pointView.alpha = 1;
+     
+     _strokeLayer.path = _strokePath.CGPath;
+     _fillLayer.path = _fillPath.CGPath;
+     
+     _pointView.center = _strokePath.currentPoint;
+     
+     _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
+     
+     [self layoutIfNeeded];
+     
+     [self refreshScrollView];
+     
+     if ( _strokePath.currentPoint.x > _scrollView.frame.size.width ) {
+     [_scrollView setContentOffset:CGPointMake(_scrollView.contentSize.width - _scrollView.frame.size.width, 0) animated:NO];
+     }
+     }
+     
+     PlotPoint *_lastPoint = _points.lastObject;
+     
+     _indicatorView.value = _lastPoint.value.floatValue;
+     
+     [self refreshScrollView];
+     
+     if ( _strokePath.currentPoint.x > _scrollView.frame.size.width && _readyToAnimate ) {
+     [_scrollView setContentOffset:CGPointMake(_scrollView.contentSize.width - _scrollView.frame.size.width, 0) animated:YES];
+     }
+     */
     
-    [_plotLine addPoints:[[_points rac_sequence] map:^id (id value) {
-        return [NSValue valueWithCGPoint:[self convertPoint:value]];
-    }].array withXOffset:0];
-    
-
-    
-    if ( _strokeLayer.path ) {
-        _points = points.mutableCopy;
-        
-        if ( redraw ) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                CGAffineTransform transform = CGAffineTransformMakeTranslation(xShift, 0);
-                [_strokePath applyTransform:transform];
-                [self generatePath:_points];
-                _strokeLayer.path = _strokePath.CGPath;
-                _fillLayer.path = _fillPath.CGPath;
-            });
-            
-            [UIView animateWithDuration:0.2 animations:^{
-                _timeBarOffset += xShift;
-                [self refreshCollectionView];
-            }];
-        }
-        
-        CABasicAnimation *strokeAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
-        strokeAnimation.duration = 0.2;
-        strokeAnimation.fromValue = (id)_oldStrokePath.CGPath;
-        strokeAnimation.toValue = (id)_strokePath.CGPath;
-        strokeAnimation.removedOnCompletion = NO;
-        strokeAnimation.fillMode = kCAFillModeBoth;
-        [_strokeLayer addAnimation:strokeAnimation forKey:@"path"];
-        
-        CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
-        fillAnimation.duration = 0.2;
-        fillAnimation.fromValue = (id)_oldFillPath.CGPath;
-        fillAnimation.toValue = (id)_fillPath.CGPath;
-        fillAnimation.removedOnCompletion = NO;
-        fillAnimation.fillMode = kCAFillModeBoth;
-        [_fillLayer addAnimation:fillAnimation forKey:@"path"];
-        
-        _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
-        
-        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-            [self layoutIfNeeded];
-            [self refreshPoint];
-        } completion:nil];
-    }
-    else {
-        [_timeCollectionView reloadData];
-        [_activity stopAnimating];
-        
-        _indicatorView.alpha = 1;
-        _pointView.alpha = 1;
-        
-        _strokeLayer.path = _strokePath.CGPath;
-        _fillLayer.path = _fillPath.CGPath;
-        
-        _pointView.center = _strokePath.currentPoint;
-        
-        _indicatorCenterYConstraint.constant = _strokePath.currentPoint.y;
-        
-        [self layoutIfNeeded];
-        
-        [self refreshScrollView];
-        
-        if ( _strokePath.currentPoint.x > _scrollView.frame.size.width ) {
-            [_scrollView setContentOffset:CGPointMake(_scrollView.contentSize.width - _scrollView.frame.size.width, 0) animated:NO];
-        }
-    }
-    
-    PlotPoint *_lastPoint = _points.lastObject;
-    
-    _indicatorView.value = _lastPoint.value.floatValue;
-    
-    [self refreshScrollView];
-    
-    if ( _strokePath.currentPoint.x > _scrollView.frame.size.width && _readyToAnimate ) {
-        [_scrollView setContentOffset:CGPointMake(_scrollView.contentSize.width - _scrollView.frame.size.width, 0) animated:YES];
-    }
+    [_activity stopAnimating];
 }
 
 
@@ -534,6 +553,35 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     [_plotLine addPoints:[[_points rac_sequence] map:^id (id value) {
         return [NSValue valueWithCGPoint:[self convertPoint:value]];
     }].array withXOffset:0];
+}
+
+
+- (void)addPoint
+{
+    int lowerBound = 0;
+    int upperBound = self.bounds.size.height;
+    int rndValue = lowerBound + arc4random() % (upperBound - lowerBound);
+    CGPoint test = CGPointMake(_pointsShift * 5, rndValue);
+    
+    [_plotLine addPoints:@[[NSValue valueWithCGPoint:test]] withXOffset:0];
+    _pointsShift++;
+}
+
+
+- (void)addPoints
+{
+    NSMutableArray *points = [NSMutableArray new];
+    
+    for ( int i = 0; i < 5; i++ ) {
+        int lowerBound = 0;
+        int upperBound = self.bounds.size.height;
+        int rndValue = lowerBound + arc4random() % (upperBound - lowerBound);
+        CGPoint test = CGPointMake(_pointsShift * 5, rndValue);
+        [points addObject:[NSValue valueWithCGPoint:test]];
+        _pointsShift++;
+    }
+    
+    [_plotLine addPoints:points.copy withXOffset:0];
 }
 
 
