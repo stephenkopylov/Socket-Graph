@@ -22,12 +22,14 @@
     self = [super init];
     
     if ( self ) {
-        _animator = [[FloatAnimator alloc] initWithFps:60];
+        _animator = [[FloatAnimator alloc] initWithFps:30];
         _animator.delegate = self;
+        self.drawsAsynchronously = YES;
     }
     
     return self;
 }
+
 
 - (void)setAnimatedPath:(UIBezierPath *)animatedPath
 {
@@ -44,13 +46,24 @@
 - (void)drawPathWithProgress:(float)progress
 {
     NSLog(@"draw plot with progress %f", progress);
-    UIBezierPath *path = [UIBezierPath new];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIBezierPath *path = [UIBezierPath new];
+        
+        [path moveToPoint:CGPointMake(0, 0)];
+        [path addLineToPoint:CGPointMake(50, 50)];
+        [path addLineToPoint:CGPointMake(70, 20)];
+        [path addLineToPoint:CGPointMake(90, 100)];
+        [path addLineToPoint:[self interpolatePointFrom:CGPointMake(90, 100) to:CGPointMake(94, 105) withProgress:progress]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.path = path.CGPath;
+        });
+    });
 }
 
 
 - (CGPoint)interpolatePointFrom:(CGPoint)from to:(CGPoint)to withProgress:(float)progress
 {
-    return CGPointMake((to.x - from.x) * progress, (to.y - from.y) * progress);
+    return CGPointMake(from.x + (to.x - from.x) * progress, from.y + (to.y - from.y) * progress);
 }
 
 

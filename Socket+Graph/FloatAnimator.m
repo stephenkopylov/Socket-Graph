@@ -33,6 +33,7 @@
     __block float value = from;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
         for ( int i = 0; i < stepsCount; i++ ) {
             usleep(timeStep * 1000000); // sleep in microseconds
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -49,6 +50,8 @@
         }
     });
 }
+
+
 
 
 @end

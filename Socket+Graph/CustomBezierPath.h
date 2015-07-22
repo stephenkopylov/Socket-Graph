@@ -13,7 +13,7 @@
 
 @property (nonatomic) NSArray *points;
 
--(void)addKeyPlotPoint:(PlotPoint*)point;
--(void)addPlotPoint:(PlotPoint*)point;
+- (void)addKeyPlotPoint:(PlotPoint *)point;
+- (void)addPlotPoint:(PlotPoint *)point;
 
 @end
