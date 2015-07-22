@@ -4,30 +4,68 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-ReactiveCocoa.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>Pods-Realm+JSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Pods-Realm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Pods-SocketRocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>12433F0D6B5BF627F4768030</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2D31820A12D3F542E3613AB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>39094D1362D16D81EDA473F4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>829F157ADC6D56C66292AE4C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>AE2828A2593B8617361A47C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EB6C8EE78F7CA62EE56BCDF3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

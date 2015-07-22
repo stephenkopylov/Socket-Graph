@@ -40,6 +40,8 @@
 		EE3B1B591B58E178003ECD3E /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3B1B581B58E178003ECD3E /* AlertViewController.m */; };
 		EE3B1B5C1B58E359003ECD3E /* PlotsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3B1B5B1B58E359003ECD3E /* PlotsManager.m */; };
 		EE3B1B5F1B58F348003ECD3E /* PlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3B1B5E1B58F348003ECD3E /* PlotView.m */; };
+		EE9E0E981B5FA7D6009B1D38 /* PlotLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9E0E971B5FA7D6009B1D38 /* PlotLayer.m */; };
+		EE9E0E9B1B5FB784009B1D38 /* CustomBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9E0E9A1B5FB784009B1D38 /* CustomBezierPath.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +124,10 @@
 		EE3B1B5B1B58E359003ECD3E /* PlotsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotsManager.m; sourceTree = "<group>"; };
 		EE3B1B5D1B58F348003ECD3E /* PlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotView.h; sourceTree = "<group>"; };
 		EE3B1B5E1B58F348003ECD3E /* PlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotView.m; sourceTree = "<group>"; };
+		EE9E0E961B5FA7D6009B1D38 /* PlotLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotLayer.h; sourceTree = "<group>"; };
+		EE9E0E971B5FA7D6009B1D38 /* PlotLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotLayer.m; sourceTree = "<group>"; };
+		EE9E0E991B5FB784009B1D38 /* CustomBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBezierPath.h; sourceTree = "<group>"; };
+		EE9E0E9A1B5FB784009B1D38 /* CustomBezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBezierPath.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,10 +305,14 @@
 		84A348FB1B5ED2A600C8725F /* Lines */ = {
 			isa = PBXGroup;
 			children = (
+				EE9E0E961B5FA7D6009B1D38 /* PlotLayer.h */,
+				EE9E0E971B5FA7D6009B1D38 /* PlotLayer.m */,
 				84A348FC1B5ED2CF00C8725F /* BaseLine.h */,
 				84A348FD1B5ED2CF00C8725F /* BaseLine.m */,
 				84A348FF1B5ED32400C8725F /* PlotLine.h */,
 				84A349001B5ED32400C8725F /* PlotLine.m */,
+				EE9E0E991B5FB784009B1D38 /* CustomBezierPath.h */,
+				EE9E0E9A1B5FB784009B1D38 /* CustomBezierPath.m */,
 			);
 			name = Lines;
 			sourceTree = "<group>";
@@ -496,12 +506,14 @@
 				843DB87B1B56F6110078367C /* RatesViewController.m in Sources */,
 				8463D7071B583FD200AC0ACE /* DropDownMenuItem.m in Sources */,
 				EE3B1B5C1B58E359003ECD3E /* PlotsManager.m in Sources */,
+				EE9E0E981B5FA7D6009B1D38 /* PlotLayer.m in Sources */,
 				845918D71B55A93600D30AA5 /* MainViewController.m in Sources */,
 				845918D41B55A93600D30AA5 /* AppDelegate.m in Sources */,
 				8463D70E1B5855F600AC0ACE /* UIAlertController+Window.m in Sources */,
 				843DB87E1B56F8790078367C /* GraphViewController.m in Sources */,
 				84A349011B5ED32400C8725F /* PlotLine.m in Sources */,
 				84A348FE1B5ED2CF00C8725F /* BaseLine.m in Sources */,
+				EE9E0E9B1B5FB784009B1D38 /* CustomBezierPath.m in Sources */,
 				8463D7111B585A1700AC0ACE /* NotificationsManager.m in Sources */,
 				847591301B55CC3F00DD2BA2 /* LoadingScreenViewController.m in Sources */,
 				8463D7171B585BC200AC0ACE /* PlotPoint.m in Sources */,

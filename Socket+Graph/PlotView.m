@@ -59,6 +59,8 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     CGFloat _timeOffsetX;
     
     NSInteger _pointsShift;
+    
+    NSMutableArray *_pointz;
 }
 
 - (void)dealloc
@@ -260,11 +262,12 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     
     [self calculateMinMax];
     [self generatePath:_points];
+    
+    
     /*
      [_plotLine addPoints:[[_points rac_sequence] map:^id (id value) {
      return [NSValue valueWithCGPoint:[self convertPoint:value]];
-     }].array withXOffset:0];
-     
+     }].array withXOffset:xShift];
      
      
      if ( _strokeLayer.path ) {
@@ -558,18 +561,29 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
 
 - (void)addPoint
 {
+    if ( !_pointz ) {
+        _pointz = [NSMutableArray new];
+    }
+    
     int lowerBound = 0;
     int upperBound = self.bounds.size.height;
     int rndValue = lowerBound + arc4random() % (upperBound - lowerBound);
     CGPoint test = CGPointMake(_pointsShift * 5, rndValue);
     
-    [_plotLine addPoints:@[[NSValue valueWithCGPoint:test]] withXOffset:0];
+    [_pointz addObject:[NSValue valueWithCGPoint:test]];
+    
+    [_plotLine addPoints:_pointz.copy withXOffset:0];
+    
     _pointsShift++;
 }
 
 
 - (void)addPoints
 {
+    if ( !_pointz ) {
+        _pointz = [NSMutableArray new];
+    }
+    
     NSMutableArray *points = [NSMutableArray new];
     
     for ( int i = 0; i < 5; i++ ) {
@@ -581,7 +595,10 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
         _pointsShift++;
     }
     
-    [_plotLine addPoints:points.copy withXOffset:0];
+    [_pointz addObjectsFromArray:points];
+    
+    [_plotLine addPoints:_pointz.copy withXOffset:0];
+    
 }
 
 

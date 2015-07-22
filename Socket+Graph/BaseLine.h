@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlotLayer.h"
 
 @interface BaseLine : UIView
 
@@ -15,9 +16,11 @@
 @property (nonatomic) UIBezierPath *strokePath;
 @property (nonatomic) UIBezierPath *oldStrokePath;
 
-@property (nonatomic)   CAShapeLayer *strokeLayer;
+@property (nonatomic) CAShapeLayer *strokeLayer;
 
-- (void)addPoints:(NSArray *)points withXOffset:(CGFloat *)offset;
+@property (nonatomic) PlotLayer *plotLayer;
+
+- (void)addPoints:(NSArray *)points withXOffset:(CGFloat)offset;
 
 - (void)generatePath;
 
