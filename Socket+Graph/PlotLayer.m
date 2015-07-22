@@ -17,7 +17,6 @@
     FloatAnimator *_animator;
 }
 
-
 - (instancetype)init
 {
     self = [super init];
@@ -29,7 +28,6 @@
     
     return self;
 }
-
 
 - (void)setAnimatedPath:(UIBezierPath *)animatedPath
 {
@@ -46,6 +44,13 @@
 - (void)drawPathWithProgress:(float)progress
 {
     NSLog(@"draw plot with progress %f", progress);
+    UIBezierPath *path = [UIBezierPath new];
+}
+
+
+- (CGPoint)interpolatePointFrom:(CGPoint)from to:(CGPoint)to withProgress:(float)progress
+{
+    return CGPointMake((to.x - from.x) * progress, (to.y - from.y) * progress);
 }
 
 
