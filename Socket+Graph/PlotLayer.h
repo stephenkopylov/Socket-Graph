@@ -13,6 +13,4 @@
 @property (nonatomic) UIBezierPath *animatedPath;
 @property (nonatomic) UIBezierPath *oldAnimatedPath;
 
-@property (nonatomic) CGFloat animProgress;
-
 @end

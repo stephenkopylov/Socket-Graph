@@ -7,18 +7,27 @@
 //
 
 #import "PlotLayer.h"
+#import "FloatAnimator.h"
 
-@implementation PlotLayer
+@interface PlotLayer ()<FloatAnimatorDelegate>
 
-@dynamic animProgress;
+@end
 
-+ (BOOL)needsDisplayForKey:(NSString *)key
+@implementation PlotLayer {
+    FloatAnimator *_animator;
+}
+
+
+- (instancetype)init
 {
-    if ( [@"animProgress" isEqualToString:key] ) {
-        return YES;
+    self = [super init];
+    
+    if ( self ) {
+        _animator = [[FloatAnimator alloc] initWithFps:60];
+        _animator.delegate = self;
     }
     
-    return [super needsDisplayForKey:key];
+    return self;
 }
 
 
@@ -29,36 +38,22 @@
     }
     
     _animatedPath = animatedPath;
-    self.animProgress = 0;
-    self.animProgress = 1;
+    
+    [_animator animateFrom:0 andTo:1 withDuration:0.2];
 }
 
 
-- (void)display
+- (void)drawPathWithProgress:(float)progress
 {
-    NSLog(@"oldPath: %f", [[self presentationLayer] animProgress]);
-    
-   // NSLog(@"animatedPath: %@", self.animatedPath);
-    
-    self.path = _animatedPath.CGPath;
+    NSLog(@"draw plot with progress %f", progress);
 }
 
 
-- (id<CAAction>)actionForKey:(NSString *)key
+#pragma mark - FloatAnimatorDelegate
+
+- (void)floatAnimator:(FloatAnimator *)animator didChangeValue:(float)value
 {
-    if ( [key isEqualToString:@"animProgress"] ) {
-            CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:key];
-            animation.duration = 0.2;
-            animation.beginTime = 0;
-            animation.fromValue = @0;
-            animation.toValue = @1;
-            animation.fillMode = kCAFillModeForwards;
-            animation.removedOnCompletion = YES;
-            
-            return animation;
-    }
-    
-    return [super actionForKey:key];
+    [self drawPathWithProgress:value];
 }
 
 
