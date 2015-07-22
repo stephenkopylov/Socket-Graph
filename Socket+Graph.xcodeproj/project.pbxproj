@@ -42,6 +42,7 @@
 		EE3B1B5F1B58F348003ECD3E /* PlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3B1B5E1B58F348003ECD3E /* PlotView.m */; };
 		EE9E0E981B5FA7D6009B1D38 /* PlotLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9E0E971B5FA7D6009B1D38 /* PlotLayer.m */; };
 		EE9E0E9B1B5FB784009B1D38 /* CustomBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9E0E9A1B5FB784009B1D38 /* CustomBezierPath.m */; };
+		EE9E0ED31B5FE35D009B1D38 /* FloatAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9E0ED21B5FE35D009B1D38 /* FloatAnimator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,8 @@
 		EE9E0E971B5FA7D6009B1D38 /* PlotLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotLayer.m; sourceTree = "<group>"; };
 		EE9E0E991B5FB784009B1D38 /* CustomBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomBezierPath.h; sourceTree = "<group>"; };
 		EE9E0E9A1B5FB784009B1D38 /* CustomBezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomBezierPath.m; sourceTree = "<group>"; };
+		EE9E0ED11B5FE35D009B1D38 /* FloatAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatAnimator.h; sourceTree = "<group>"; };
+		EE9E0ED21B5FE35D009B1D38 /* FloatAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatAnimator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +276,8 @@
 		847591321B55CC6500DD2BA2 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				EE9E0ED11B5FE35D009B1D38 /* FloatAnimator.h */,
+				EE9E0ED21B5FE35D009B1D38 /* FloatAnimator.m */,
 				849666201B55ACA1000C985D /* SocketManager.h */,
 				849666211B55ACA1000C985D /* SocketManager.m */,
 				849397621B55C3010067AEAA /* UserManager.h */,
@@ -525,6 +530,7 @@
 				8472FA6B1B5ABD7E00BC8C9A /* GridLineView.m in Sources */,
 				84C182AD1B57093500329139 /* DropDownMenu.m in Sources */,
 				849666221B55ACA1000C985D /* SocketManager.m in Sources */,
+				EE9E0ED31B5FE35D009B1D38 /* FloatAnimator.m in Sources */,
 				843DB8731B56EE730078367C /* CustomFlowLayout.m in Sources */,
 				8472FA6F1B5AC51500BC8C9A /* TimeBarCell.m in Sources */,
 				843DB8811B56F88A0078367C /* MenuViewController.m in Sources */,
