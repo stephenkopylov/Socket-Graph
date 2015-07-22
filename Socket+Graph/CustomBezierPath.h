@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlotPoint.h"
 
 @interface CustomBezierPath : UIBezierPath
+
+@property (nonatomic) NSArray *points;
+
+-(void)addKeyPlotPoint:(PlotPoint*)point;
+-(void)addPlotPoint:(PlotPoint*)point;
 
 @end

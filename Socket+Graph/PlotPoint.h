@@ -8,12 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+    PlotPointTypeCommon,
+    PlotPointTypeKey
+} PlotPointType;
+
 @interface PlotPoint : NSObject
 
 @property (nonatomic) NSNumber *assetId;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSNumber *value;
 @property (nonatomic) NSNumber *time;
+@property (nonatomic) CGPoint point;
+@property (nonatomic) PlotPointType type;
 
 - (instancetype)initWithServerDictionary:(NSDictionary *)dictionary;
 

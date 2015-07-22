@@ -236,13 +236,34 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     
     CGFloat xShift = 0;
     
+    NSMutableArray *plotPoints = [NSMutableArray new];
+    
     if ( points.count == _points.count ) {
         PlotPoint *lastPoint = _points.lastObject;
         
-        NSArray *newPoints = [[points rac_sequence] filter:^BOOL (id value) {
+        NSArray *newPoints = [[[points rac_sequence] filter:^BOOL (id value) {
             PlotPoint *currentPoint = (PlotPoint *)value;
             return currentPoint.time.integerValue > lastPoint.time.integerValue;
+        }] map:^id (id value) {
+            PlotPoint *currentPoint = (PlotPoint *)value;
+            currentPoint.type = PlotPointTypeCommon;
+            currentPoint.point = [self convertPoint:currentPoint];
+            return currentPoint;
         }].array;
+        
+        NSArray *oldPoints = [[[points rac_sequence] filter:^BOOL (id value) {
+            PlotPoint *currentPoint = (PlotPoint *)value;
+            return currentPoint.time.integerValue <= lastPoint.time.integerValue;
+        }] map:^id (id value) {
+            PlotPoint *currentPoint = (PlotPoint *)value;
+            currentPoint.type = PlotPointTypeKey;
+            currentPoint.point = [self convertPoint:currentPoint];
+            return currentPoint;
+        }].array;
+        
+        [plotPoints addObjectsFromArray:oldPoints];
+        
+        [plotPoints addObjectsFromArray:newPoints];
         
         if ( newPoints.count ) {
             CGPoint lastP = [self convertPoint:lastPoint];
@@ -570,6 +591,7 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     int rndValue = lowerBound + arc4random() % (upperBound - lowerBound);
     CGPoint test = CGPointMake(_pointsShift * 5, rndValue);
     
+    
     [_pointz addObject:[NSValue valueWithCGPoint:test]];
     
     [_plotLine addPoints:_pointz.copy withXOffset:0];
@@ -598,7 +620,6 @@ NSString *const TimeCollectionViewCellIdentifier = @"TimeCollectionViewCellIdent
     [_pointz addObjectsFromArray:points];
     
     [_plotLine addPoints:_pointz.copy withXOffset:0];
-    
 }
 
 
